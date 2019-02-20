@@ -37,7 +37,7 @@ public class ApiError {
     @Builder()
     public ApiError(HttpStatus status, String message, String debugMessage, Throwable ex, @Singular List<ApiSubError> subErrors) {
         this();
-        this.status = status != null ? status: HttpStatus.BAD_REQUEST;
+        this.status = status != null ? status: ex != null ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST;
         this.message = StringUtils.isNotBlank(message) ? message : this.status.getReasonPhrase();
         this.debugMessage = StringUtils.isNotBlank(debugMessage) ? debugMessage : ex != null ? ex.getLocalizedMessage() : "";
         this.throwable = ex;
