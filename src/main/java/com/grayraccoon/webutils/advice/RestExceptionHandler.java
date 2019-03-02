@@ -1,5 +1,6 @@
 package com.grayraccoon.webutils.advice;
 
+import com.grayraccoon.webutils.dto.GenericDto;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
 import com.grayraccoon.webutils.errors.ApiError;
 import org.slf4j.Logger;
@@ -42,7 +43,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
-        return new ResponseEntity<>(apiError, apiError.getStatus());
+        GenericDto dto = GenericDto.builder().error(apiError).build();
+        return new ResponseEntity<>(dto, apiError.getStatus());
     }
 
 }
