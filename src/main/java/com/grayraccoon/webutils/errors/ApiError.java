@@ -34,13 +34,13 @@ public class ApiError {
         message = status.getReasonPhrase();
     }
 
-    @Builder()
-    public ApiError(HttpStatus status, String message, String debugMessage, Throwable ex, @Singular List<ApiSubError> subErrors) {
+    @Builder(toBuilder = true)
+    public ApiError(HttpStatus status, String message, String debugMessage, Throwable throwable, @Singular List<ApiSubError> subErrors) {
         this();
-        this.status = status != null ? status: ex != null ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST;
+        this.status = status != null ? status: throwable != null ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST;
         this.message = StringUtils.isNotBlank(message) ? message : this.status.getReasonPhrase();
-        this.debugMessage = StringUtils.isNotBlank(debugMessage) ? debugMessage : ex != null ? ex.getLocalizedMessage() : "";
-        this.throwable = ex;
+        this.debugMessage = StringUtils.isNotBlank(debugMessage) ? debugMessage : throwable != null ? throwable.getLocalizedMessage() : "";
+        this.throwable = throwable;
         this.subErrors = subErrors;
     }
 

@@ -7,7 +7,6 @@ import lombok.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-@RequiredArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiValidationError extends ApiSubError {
 
@@ -15,12 +14,14 @@ public class ApiValidationError extends ApiSubError {
 
     private String field;
 
-    @NonNull
     private Object rejectedValue;
 
     private String message;
 
-    public ApiValidationError(String field, @NonNull Object rejectedValue, String message) {
+    public ApiValidationError(Object rejectedValue) {
+        this.rejectedValue = rejectedValue;
+    }
+    public ApiValidationError(String field, Object rejectedValue, String message) {
         this(null, field, rejectedValue, message);
     }
 
