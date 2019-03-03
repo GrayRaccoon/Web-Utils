@@ -20,4 +20,8 @@ public class ApiValidationError extends ApiSubError {
 
     private String message;
 
+    public ApiValidationError(String field, @NonNull Object rejectedValue, String message) {
+        this(null, field, rejectedValue, message);
+    }
+
 }
