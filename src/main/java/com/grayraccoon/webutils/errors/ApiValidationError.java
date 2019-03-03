@@ -10,8 +10,6 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiValidationError extends ApiSubError {
 
-    private String objectType;
-
     private String field;
 
     private Object rejectedValue;
@@ -20,9 +18,6 @@ public class ApiValidationError extends ApiSubError {
 
     public ApiValidationError(Object rejectedValue) {
         this.rejectedValue = rejectedValue;
-    }
-    public ApiValidationError(String field, Object rejectedValue, String message) {
-        this(null, field, rejectedValue, message);
     }
 
 }
