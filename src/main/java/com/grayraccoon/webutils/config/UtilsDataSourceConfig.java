@@ -26,6 +26,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @Configuration
 @EnableTransactionManagement
 @ConditionalOnProperty(

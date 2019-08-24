@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.grayraccoon.webutils.errors.general.ApiSubError;
 import lombok.*;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor

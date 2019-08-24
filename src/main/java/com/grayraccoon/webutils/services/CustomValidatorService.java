@@ -6,6 +6,9 @@ import com.grayraccoon.webutils.errors.ApiValidationError;
 import javax.validation.ConstraintViolation;
 import java.util.Set;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 public interface CustomValidatorService {
 
     public Set<ApiValidationError> validateObject(Object object);

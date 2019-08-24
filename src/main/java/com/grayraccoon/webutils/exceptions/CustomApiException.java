@@ -3,6 +3,9 @@ package com.grayraccoon.webutils.exceptions;
 import com.grayraccoon.webutils.errors.ApiError;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 public class CustomApiException extends RuntimeException {
 
     private ApiError apiError;

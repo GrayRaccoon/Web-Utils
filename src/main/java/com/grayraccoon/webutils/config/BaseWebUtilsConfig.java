@@ -8,6 +8,9 @@ import org.springframework.util.ResourceUtils;
 
 import com.grayraccoon.webutils.config.factory.YmlPropertyLoaderFactory;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @ComponentScan(basePackages = {
         "com.grayraccoon.webutils.advice",
         "com.grayraccoon.webutils.config.properties",

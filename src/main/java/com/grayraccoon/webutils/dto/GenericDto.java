@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @Builder
 @Getter
 @NoArgsConstructor

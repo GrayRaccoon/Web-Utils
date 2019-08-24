@@ -17,6 +17,9 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WebUtilsAppContext.class)
 public class AsyncRunnerServiceImplIT extends AbstractJUnit4SpringContextTests {

@@ -13,6 +13,9 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 @Service
 public class CustomValidatorServiceImpl implements CustomValidatorService {
 

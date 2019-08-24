@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
+ */
 public class YmlPropertyLoaderFactory extends DefaultPropertySourceFactory {
 
     @Override
