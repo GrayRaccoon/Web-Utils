@@ -1,0 +1,31 @@
+
+spring:
+  web-utils:
+    tasks:
+      maxPoolSize: 100
+      corePoolSize: 20
+      queueCapacity: 100
+      threadNamePrefix: Async-Exec-
+    data:
+      enabled: true
+      entities-package: com.some.package
+      heroku:
+        url-env-name: HEROKU_POSTGRESQL_TEAL_URL
+        db-schema: public
+        db-type: postgresql
+
+      datasource:
+        # Connection Properties
+        #driver-class-name: org.postgresql.Driver
+        #jdbc-url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+        #username: dbo_admin
+        #password: root
+
+        # Pool Properties
+        maximumPoolSize: 10
+        minimumIdle: 1
+
+        #Connection test timing and intervals properties
+        connectionTimeout: 30000
+        idleTimeout: 600000
+        maxLifetime: 1200000

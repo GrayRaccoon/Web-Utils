@@ -1,0 +1,26 @@
+
+spring:
+  # Web-Utils Configuration
+  web-utils:
+    tasks:
+      maxPoolSize: 10
+      corePoolSize: 4
+      queueCapacity: 8
+      threadNamePrefix: Async-tests-
+    data:
+      enabled: true
+      # Jpa Entities Package
+      entities-package: com.grayraccoon.webutils
+
+      # Postgres DataSource
+      datasource:
+        jdbc-url: jdbc:h2:mem:cloud_db;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS public
+        username: sa
+        password: sa
+        driver-class-name: org.h2.Driver
+
+  jpa:
+    database: default
+    hibernate.ddl-auto: validate
+    properties.hibernate.jdbc.lob.non_contextual_creation: true
+
