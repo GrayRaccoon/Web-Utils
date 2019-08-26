@@ -20,8 +20,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
+        <spring-cloud-context-version>2.1.1.RELEASE</spring-cloud-context-version>
+
         <commons-lang3-version>3.9</commons-lang3-version>
+        <commons-io-version>2.6</commons-io-version>
         <lombok-version>1.18.8</lombok-version>
+        <hystrix-javanica-version>1.5.18</hystrix-javanica-version>
 
         <jackson-fasterxml-version>2.9.9</jackson-fasterxml-version>
         <slf4j-api-version>1.7.26</slf4j-api-version>
@@ -53,7 +57,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
-            <version>2.1.1.RELEASE</version>
+            <version>${spring-cloud-context-version}</version>
         </dependency>
 
 
@@ -64,10 +68,23 @@
         </dependency>
 
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io-version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok-version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.netflix.hystrix</groupId>
+            <artifactId>hystrix-javanica</artifactId>
+            <version>${hystrix-javanica-version}</version>
+            <scope>compile</scope>
         </dependency>
 
 
