@@ -29,6 +29,8 @@ spring:
         connectionTimeout: 30000
         idleTimeout: 600000
         maxLifetime: 1200000
+    web:
+      allow-all-cors: false
     security:
       oauth2-server:
         enabled: true

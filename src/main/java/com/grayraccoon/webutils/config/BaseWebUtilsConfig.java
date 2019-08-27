@@ -1,7 +1,6 @@
 package com.grayraccoon.webutils.config;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.ResourceUtils;
@@ -11,7 +10,10 @@ import com.grayraccoon.webutils.config.factory.YmlPropertyLoaderFactory;
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
  */
-@Import(TaskPoolConfiguration.class)
+@Import({
+        TaskPoolConfiguration.class,
+        WebConfig.class
+})
 @SpringBootApplication(
         // Load Advice and Services
         scanBasePackages = {

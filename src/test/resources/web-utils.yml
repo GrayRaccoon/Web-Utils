@@ -18,7 +18,8 @@ spring:
         username: sa
         password: sa
         driver-class-name: org.h2.Driver
-
+    web:
+      allow-all-cors: true
     security:
       oauth2-server:
         enabled: true
