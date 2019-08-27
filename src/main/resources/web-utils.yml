@@ -29,3 +29,20 @@ spring:
         connectionTimeout: 30000
         idleTimeout: 600000
         maxLifetime: 1200000
+    security:
+      oauth2-server:
+        enabled: true
+        signing-key: 8B9kTV0FfUwa76R #https://www.random.org/strings/ 15 length
+        security-realm: Web-Utils powered Backend
+      oauth2-resource:
+        enabled: true
+        local-resource-id: server-resource-id
+        secured-matchers: >
+          /**/authenticated/**,
+          /**/secured/**
+        remote-token-services:
+          enabled: false
+          client-id: my_client_id
+          client-secret: my_client_secret
+          check-token-url: http://external.oauth2server.com/oauth/check_token
+

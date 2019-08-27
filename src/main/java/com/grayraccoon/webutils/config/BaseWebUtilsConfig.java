@@ -11,13 +11,15 @@ import com.grayraccoon.webutils.config.factory.YmlPropertyLoaderFactory;
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
  */
-@ComponentScan(basePackages = {
-        "com.grayraccoon.webutils.advice",
-        "com.grayraccoon.webutils.config.properties",
-        "com.grayraccoon.webutils.services"
-})    // Load Advice and Services
 @Import(TaskPoolConfiguration.class)
-@SpringBootApplication
+@SpringBootApplication(
+        // Load Advice and Services
+        scanBasePackages = {
+                "com.grayraccoon.webutils.advice",
+                "com.grayraccoon.webutils.config.properties",
+                "com.grayraccoon.webutils.services"
+        }
+)
 @PropertySource(value = ResourceUtils.CLASSPATH_URL_PREFIX + "web-utils.yml",
         factory = YmlPropertyLoaderFactory.class)
 public class BaseWebUtilsConfig {
