@@ -3,7 +3,6 @@ package com.grayraccoon.webutils.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +21,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import javax.sql.DataSource;
 import java.util.Arrays;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Configuration
 @EnableAuthorizationServer
-@Import(EncodersConfig.class)
 @ConditionalOnProperty(
         value="spring.web-utils.security.oauth2-server.enabled",
         havingValue = "true",

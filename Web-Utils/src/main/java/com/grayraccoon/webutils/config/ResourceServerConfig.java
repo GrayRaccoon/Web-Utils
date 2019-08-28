@@ -15,6 +15,9 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 
 import java.util.Map;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Configuration
 @EnableResourceServer
 @ConditionalOnProperty(

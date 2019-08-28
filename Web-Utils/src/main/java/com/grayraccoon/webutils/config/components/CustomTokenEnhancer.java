@@ -12,6 +12,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 public class CustomTokenEnhancer implements TokenEnhancer {
 
     private BaseUserService baseUserService;

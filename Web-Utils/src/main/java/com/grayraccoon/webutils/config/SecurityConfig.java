@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,8 +34,12 @@ import org.springframework.web.context.request.RequestContextListener;
 
 import javax.sql.DataSource;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
+@Import(EncodersConfig.class)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -86,10 +91,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // Oauth2 Server Config Starts
 
     @Bean
-    @ConditionalOnProperty(
-            value="spring.web-utils.security.oauth2-server.enabled",
-            havingValue = "true",
-            matchIfMissing = true)
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
@@ -124,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             havingValue = "true",
             matchIfMissing = true)
     public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(signingKey);
         converter.setAccessTokenConverter(customAccessTokenConverter());
         return converter;
@@ -137,7 +138,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             havingValue = "true",
             matchIfMissing = true)
     public ApprovalStore approvalStore() {
-        ApprovalStore approvalStore = new JdbcApprovalStore(utilsDataSource);
+        final ApprovalStore approvalStore = new JdbcApprovalStore(utilsDataSource);
         return approvalStore;
     }
 
@@ -167,7 +168,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             matchIfMissing = true)
     //Making this primary to avoid any accidental duplication with another token service instance of the same name
     public DefaultTokenServices tokenServices() {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 
         defaultTokenServices.setTokenEnhancer(accessTokenConverter());
         defaultTokenServices.setTokenStore(tokenStore());
@@ -196,7 +197,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             havingValue = "true",
             matchIfMissing = false)
     public RemoteTokenServices remoteTokenServices() {
-        RemoteTokenServices tokenService = new RemoteTokenServices();
+        final RemoteTokenServices tokenService = new RemoteTokenServices();
 
         tokenService.setCheckTokenEndpointUrl( // OAuth2 Server Url
                 tokenServicesCheckTokenUrl);

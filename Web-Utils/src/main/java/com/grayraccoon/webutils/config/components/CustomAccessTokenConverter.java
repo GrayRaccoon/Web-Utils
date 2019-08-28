@@ -5,6 +5,9 @@ import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConv
 
 import java.util.Map;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
 
     @Override

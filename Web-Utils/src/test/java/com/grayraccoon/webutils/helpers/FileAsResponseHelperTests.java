@@ -18,6 +18,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class FileAsResponseHelperTests {
 

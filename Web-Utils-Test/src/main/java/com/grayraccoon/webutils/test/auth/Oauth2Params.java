@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Data
 public class Oauth2Params implements Serializable {
     private String grant_type = "password";

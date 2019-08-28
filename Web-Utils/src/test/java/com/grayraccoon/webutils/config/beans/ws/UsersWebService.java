@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @RestController
 public class UsersWebService extends BaseWebService {
 

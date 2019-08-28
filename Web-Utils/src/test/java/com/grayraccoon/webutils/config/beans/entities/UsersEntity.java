@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Entity
 @Table(name = "Users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"email"})

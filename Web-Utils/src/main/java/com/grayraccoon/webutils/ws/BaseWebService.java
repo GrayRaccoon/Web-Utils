@@ -7,6 +7,9 @@ import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @RequestMapping("/ws")
 @DefaultProperties(
         ignoreExceptions = CustomApiException.class,

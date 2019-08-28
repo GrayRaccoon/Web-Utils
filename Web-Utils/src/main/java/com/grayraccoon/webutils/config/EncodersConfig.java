@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Configuration
 public class EncodersConfig {
 

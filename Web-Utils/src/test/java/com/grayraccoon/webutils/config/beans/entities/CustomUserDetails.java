@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 public class CustomUserDetails extends UsersEntity implements UserDetails {
 
     public CustomUserDetails(UsersEntity u) {

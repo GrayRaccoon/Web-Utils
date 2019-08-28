@@ -14,6 +14,9 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 public final class FileAsResponseHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileAsResponseHelper.class);

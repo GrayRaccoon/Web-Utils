@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @Entity
 @Table(name = "Roles")
 @NamedQueries({

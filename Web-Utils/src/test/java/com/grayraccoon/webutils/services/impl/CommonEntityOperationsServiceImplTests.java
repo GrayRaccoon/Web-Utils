@@ -20,6 +20,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class CommonEntityOperationsServiceImplTests {
 

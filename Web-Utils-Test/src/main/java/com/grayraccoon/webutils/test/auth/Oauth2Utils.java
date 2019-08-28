@@ -24,6 +24,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * @author Heriberto Reyes Esparza
+ */
 public final class Oauth2Utils {
 
     private static final Oauth2Params oauth2Params = new Oauth2Params();
