@@ -1,0 +1,52 @@
+
+spring:
+  web-utils:
+    tasks:
+      maxPoolSize: 100
+      corePoolSize: 20
+      queueCapacity: 100
+      threadNamePrefix: Async-Exec-
+    data:
+      enabled: true
+      entities-package: com.some.package
+      persistence-unit: utils
+      heroku:
+        jdbc-url-template: jdbc:_DB_TYPE_://_HOST_:_PORT__PATH_?currentSchema=_SCHEMA_
+        url-env-name: HEROKU_THE_DB_URL
+        db-schema: public
+        db-type: postgresql
+
+      datasource:
+        # Connection Properties
+        #driver-class-name: org.postgresql.Driver
+        #jdbc-url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+        #username: dbo_admin
+        #password: root
+
+        # Pool Properties
+        maximumPoolSize: 10
+        minimumIdle: 1
+
+        #Connection test timing and intervals properties
+        connectionTimeout: 30000
+        idleTimeout: 600000
+        maxLifetime: 1200000
+    web:
+      allow-all-cors: false
+    security:
+      oauth2-server:
+        enabled: true
+        signing-key: 8B9kTV0FfUwa76R #https://www.random.org/strings/ 15 length
+        security-realm: Web-Utils powered Backend
+      oauth2-resource:
+        enabled: true
+        local-resource-id: server-resource-id
+        secured-matchers: >
+          /**/authenticated/**,
+          /**/secured/**
+        remote-token-services:
+          enabled: false
+          client-id: my_client_id
+          client-secret: my_client_secret
+          check-token-url: http://external.oauth2server.com/oauth/check_token
+

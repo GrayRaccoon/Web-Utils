@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomValidatorServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">web-utils</a> &gt; <a href="index.source.html" class="el_package">com.grayraccoon.webutils.services.impl</a> &gt; <span class="el_source">CustomValidatorServiceImpl.java</span></div><h1>CustomValidatorServiceImpl.java</h1><pre class="source lang-java linenums">package com.grayraccoon.webutils.services.impl;
+
+import com.grayraccoon.webutils.errors.ApiError;
+import com.grayraccoon.webutils.errors.ApiValidationError;
+import com.grayraccoon.webutils.services.CustomValidatorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+/**
+ * @author Heriberto Reyes Esparza
+ */
+@Service
+public class CustomValidatorServiceImpl implements CustomValidatorService {
+
+    private Validator validator;
+
+<span class="fc" id="L24">    public CustomValidatorServiceImpl() {</span>
+<span class="fc" id="L25">        getValidator();</span>
+<span class="fc" id="L26">    }</span>
+
+    private Validator getValidator() {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (validator == null) {</span>
+<span class="fc" id="L30">            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L31">            validator = factory.getValidator();</span>
+        }
+<span class="fc" id="L33">        return validator;</span>
+    }
+
+    @Override
+    public Set&lt;ApiValidationError&gt; validateObject(Object object) {
+<span class="fc" id="L38">        Set&lt;ConstraintViolation&lt;Object&gt;&gt; constraintViolations</span>
+<span class="fc" id="L39">                = getValidator().validate( object );</span>
+<span class="fc" id="L40">        return constraintViolations.stream()</span>
+<span class="fc" id="L41">                .map(this::getApiValidationErrorFromConstraintViolation)</span>
+<span class="fc" id="L42">                .collect(Collectors.toSet());</span>
+    }
+
+    @Override
+    public ApiValidationError getApiValidationErrorFromConstraintViolation(ConstraintViolation&lt;?&gt; violation) {
+<span class="fc" id="L47">        return new ApiValidationError(</span>
+<span class="fc" id="L48">                violation.getPropertyPath().toString(),</span>
+<span class="fc" id="L49">                violation.getInvalidValue(),</span>
+<span class="fc" id="L50">                violation.getMessage()</span>
+        );
+    }
+
+    @Override
+    public Set&lt;ApiValidationError&gt; getApiValidationErrorsFromConstraintViolations(Set&lt;ConstraintViolation&lt;?&gt;&gt; violations) {
+<span class="fc" id="L56">        return violations.stream().map(this::getApiValidationErrorFromConstraintViolation).collect(Collectors.toSet());</span>
+    }
+
+    @Override
+    public ApiError getApiErrorFromConstraintViolations(Set&lt;ConstraintViolation&lt;?&gt;&gt; validationErrors) {
+<span class="fc" id="L61">        return this.getApiErrorFromApiValidationErrors(</span>
+<span class="fc" id="L62">                this.getApiValidationErrorsFromConstraintViolations(validationErrors)</span>
+        );
+    }
+
+    @Override
+    public ApiError getApiErrorFromApiValidationErrors(Set&lt;ApiValidationError&gt; apiErrors) {
+<span class="fc" id="L68">        return ApiError.builder()</span>
+<span class="fc" id="L69">                .status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L70">                .subErrors(apiErrors)</span>
+<span class="fc" id="L71">                .build();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

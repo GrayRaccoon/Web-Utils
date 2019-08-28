@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.grayraccoon.webutils.helpers.FileAsResponseHelperTests
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.359 s - in com.grayraccoon.webutils.helpers.FileAsResponseHelperTests

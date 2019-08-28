@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommonEntityOperationsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">web-utils</a> &gt; <a href="index.source.html" class="el_package">com.grayraccoon.webutils.services.impl</a> &gt; <span class="el_source">CommonEntityOperationsServiceImpl.java</span></div><h1>CommonEntityOperationsServiceImpl.java</h1><pre class="source lang-java linenums">package com.grayraccoon.webutils.services.impl;
+
+import com.grayraccoon.webutils.errors.ApiError;
+import com.grayraccoon.webutils.errors.ApiValidationError;
+import com.grayraccoon.webutils.exceptions.CustomApiException;
+import com.grayraccoon.webutils.services.CommonEntityOperationsService;
+import com.grayraccoon.webutils.services.CustomValidatorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+/**
+ * This service will perform and collect all possible errors on an entity before saving it into db.
+ * The purpose of this service is avoid duplicate code on Service Layer classes for different entities.
+ *
+ * @author Heriberto Reyes Esparza
+ */
+@Service
+<span class="fc" id="L27">public class CommonEntityOperationsServiceImpl implements CommonEntityOperationsService {</span>
+
+<span class="fc" id="L29">    private static final Logger LOGGER = LoggerFactory.getLogger(CommonEntityOperationsServiceImpl.class);</span>
+
+    @Autowired
+    private CustomValidatorService customValidatorService;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T extends Serializable&gt; T validateAndSaveEntity(
+            CrudRepository&lt;T, ?&gt; repository,
+            T entity) throws CustomApiException {
+<span class="fc" id="L41">        return this.validateAndSaveEntity(repository, entity, null, null);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T extends Serializable&gt; T validateAndSaveEntity(
+            CrudRepository&lt;T, ?&gt; repository,
+            T entity,
+            ManualValidatorSupplier&lt;T&gt; manualValidation) throws CustomApiException {
+<span class="fc" id="L52">        return this.validateAndSaveEntity(repository, entity, manualValidation, null);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T extends Serializable&gt; T validateAndSaveEntity(
+            CrudRepository&lt;T, ?&gt; repository,
+            T entity,
+            PostProcessEntity&lt;T&gt; postProcessEntity) throws CustomApiException {
+<span class="fc" id="L63">        return this.validateAndSaveEntity(repository, entity, null, postProcessEntity);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T extends Serializable&gt; T validateAndSaveEntity(
+            CrudRepository&lt;T, ?&gt; repository,
+            T entity,
+            ManualValidatorSupplier&lt;T&gt; manualValidation,
+            PostProcessEntity&lt;T&gt; postProcessEntity) throws CustomApiException {
+<span class="fc" id="L75">        LOGGER.info(&quot;validateAndSaveEntity()&quot;);</span>
+<span class="fc" id="L76">        Objects.requireNonNull(repository);</span>
+<span class="fc" id="L77">        Objects.requireNonNull(entity);</span>
+<span class="fc" id="L78">        LOGGER.info(&quot;Validating class: {}&quot;, entity.getClass().getName());</span>
+
+
+<span class="fc" id="L81">        final Set&lt;ApiValidationError&gt; errors = new HashSet&lt;&gt;();</span>
+
+        // Validations from annotations
+<span class="fc" id="L84">        errors.addAll(customValidatorService.validateObject(entity));</span>
+
+        // Custom Validations
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (manualValidation != null) {</span>
+<span class="fc" id="L88">            manualValidation.applyManualValidation(entity, errors);</span>
+        }
+
+<span class="fc" id="L91">        LOGGER.info(&quot;Errors found while validating entity: {}&quot;, errors.size());</span>
+
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (errors.isEmpty()) {</span>
+
+            // Apply post processing
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (postProcessEntity != null) {</span>
+<span class="fc" id="L97">                entity = postProcessEntity.postProcess(entity);</span>
+            }
+
+<span class="fc" id="L100">            return repository.save(entity);</span>
+        }else {
+<span class="fc" id="L102">            final ApiValidationError firstError = new ArrayList&lt;&gt;(errors).get(0);</span>
+<span class="fc" id="L103">            final ApiError apiError = customValidatorService.getApiErrorFromApiValidationErrors(errors)</span>
+<span class="fc" id="L104">                    .toBuilder().message(firstError.getMessage()).build();</span>
+<span class="fc" id="L105">            throw new CustomApiException(apiError);</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
