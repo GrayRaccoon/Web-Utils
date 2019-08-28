@@ -21,6 +21,7 @@ stages:
   - build
   - test
   - package
+  - verify
 
 Build:
   image: maven:latest
@@ -33,9 +34,25 @@ Test:
   stage: test
   script:
     - mvn $MAVEN_CLI_OPTS test
+  artifacts:
+    paths:
+      - "*/target/site/jacoco"
+    reports:
+      junit:
+        - "*/target/surefire-reports/TEST-*.xml"
+        - "*/target/failsafe-reports/TEST-*.xml"
 
 Package:
   image: maven:latest
   stage: package
+  script:
+    - mvn $MAVEN_CLI_OPTS package -DskipTests
+  artifacts:
+    paths:
+      - "*/target/*.jar"
+
+Verify:
+  image: maven:latest
+  stage: verify
   script:
     - mvn $MAVEN_CLI_OPTS verify -DskipTests
