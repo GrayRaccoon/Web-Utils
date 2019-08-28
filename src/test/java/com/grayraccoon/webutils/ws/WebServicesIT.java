@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WebUtilsAppContext.class)
-public class WebServicesIT extends AbstractJUnit4SpringContextTests {
+public class WebServicesIT {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebServicesIT.class);
 
@@ -56,7 +55,7 @@ public class WebServicesIT extends AbstractJUnit4SpringContextTests {
     }
 
     @Test
-    public void contextLoads() { }
+    public void contextLoads() {}
 
     @Test
     public void findAllUsers_Success_Test() throws Exception {
@@ -99,6 +98,28 @@ public class WebServicesIT extends AbstractJUnit4SpringContextTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist())
+        ;
+    }
+
+    @Test
+    public void findUser_NotFound_Test() throws Exception {
+        final String access_token = getUserAccessToken(mockMvc, "admin","password");
+
+        final String user_userId = "01e3d8d5-0009-4111-b3d0-be6562ca5922";
+
+        mockMvc.perform(get(String.format("/ws/secured/users/%s", user_userId))
+                .header("Authorization", "Bearer " + access_token)
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound())   //  404
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.data").doesNotExist())
+                .andExpect(jsonPath("$.error", Matchers.notNullValue()))
+                .andExpect(jsonPath("$.error.message", is("Not Found")))
+                .andExpect(jsonPath("$.error.subErrors", Matchers.notNullValue()))
+                .andExpect(jsonPath("$.error.subErrors", Matchers.hasSize(1)))
+                .andExpect(jsonPath("$.error.subErrors[0]", Matchers.notNullValue()))
+                .andExpect(jsonPath("$.error.subErrors[0].rejectedValue", Matchers.notNullValue()))
+                .andExpect(jsonPath("$.error.subErrors[0].rejectedValue", is(user_userId)))
         ;
     }
 

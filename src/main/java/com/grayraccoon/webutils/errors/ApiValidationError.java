@@ -2,7 +2,9 @@ package com.grayraccoon.webutils.errors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.grayraccoon.webutils.errors.general.ApiSubError;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>

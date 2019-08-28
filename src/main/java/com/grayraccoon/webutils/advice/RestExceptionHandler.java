@@ -55,10 +55,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(CustomApiException.class)
     protected ResponseEntity<Object> handleCustomApiException(
             CustomApiException ex) {
+        LOGGER.info("handling CustomApiException: {}", ex.getMessage());
 
         ApiError apiError = ex.getApiError();
 
-        Throwable cause = ex.getCause();
+        final Throwable cause = ex.getCause();
         if (cause instanceof ConstraintViolationException) {
             ConstraintViolationException violationException = (ConstraintViolationException) cause;
             apiError = customValidatorService.getApiErrorFromConstraintViolations(

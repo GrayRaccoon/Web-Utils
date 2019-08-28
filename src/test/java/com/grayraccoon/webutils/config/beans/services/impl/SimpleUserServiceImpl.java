@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
@@ -63,6 +65,20 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         user.setUpdateDateTime(LocalDateTime.now());
 
         return commonEntityOperationsService.validateAndSaveEntity(this.usersRepository, user);
+    }
+
+    @Override
+    public UsersEntity findUserById(UUID userId) {
+        final Optional<UsersEntity> userOptional = usersRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        throw new CustomApiException(
+                ApiError.builder()
+                        .status(HttpStatus.NOT_FOUND)
+                        .subError(new ApiValidationError(userId))
+                        .build()
+        );
     }
 
 }

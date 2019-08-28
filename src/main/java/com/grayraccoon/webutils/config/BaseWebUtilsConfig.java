@@ -1,11 +1,10 @@
 package com.grayraccoon.webutils.config;
 
+import com.grayraccoon.webutils.config.factory.YmlPropertyLoaderFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.util.ResourceUtils;
-
-import com.grayraccoon.webutils.config.factory.YmlPropertyLoaderFactory;
 
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>

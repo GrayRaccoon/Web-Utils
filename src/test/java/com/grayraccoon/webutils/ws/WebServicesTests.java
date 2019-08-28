@@ -5,10 +5,8 @@ import com.grayraccoon.webutils.config.beans.services.SimpleUserService;
 import com.grayraccoon.webutils.config.beans.ws.UsersWebService;
 import com.grayraccoon.webutils.errors.ApiError;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
-import com.grayraccoon.webutils.services.CustomValidatorService;
 import com.grayraccoon.webutils.services.impl.CustomValidatorServiceImpl;
 import org.hamcrest.Matchers;
-import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
