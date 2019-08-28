@@ -36,11 +36,11 @@ Test:
     - mvn $MAVEN_CLI_OPTS test
   artifacts:
     paths:
-      - "*/target/site/jacoco"
+      - target/site/jacoco
     reports:
       junit:
-        - "*/target/surefire-reports/TEST-*.xml"
-        - "*/target/failsafe-reports/TEST-*.xml"
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
 
 Package:
   image: maven:latest
@@ -49,7 +49,7 @@ Package:
     - mvn $MAVEN_CLI_OPTS package -DskipTests
   artifacts:
     paths:
-      - "*/target/*.jar"
+      - target/*.jar
 
 Verify:
   image: maven:latest
