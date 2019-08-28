@@ -85,6 +85,8 @@ public class CommonEntityOperationsServiceImpl implements CommonEntityOperations
             manualValidation.applyManualValidation(entity, errors);
         }
 
+        LOGGER.info("Errors found while validating entity: {}", errors.size());
+
         if (errors.isEmpty()) {
 
             // Apply post processing
