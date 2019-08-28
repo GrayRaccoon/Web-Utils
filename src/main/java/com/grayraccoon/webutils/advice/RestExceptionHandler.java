@@ -29,11 +29,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class.getName());
 
-    @Autowired
     private CustomValidatorService customValidatorService;
 
+    @Autowired
+    public void setCustomValidatorService(CustomValidatorService customValidatorService) {
+        this.customValidatorService = customValidatorService;
+    }
+
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
         String error = "Malformed JSON request";
         ResponseEntity<Object> responseEntity = buildResponseEntity(ApiError.builder()
                 .status(HttpStatus.BAD_REQUEST)
@@ -62,6 +70,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         LOGGER.error("handleCustomApiException: {}", responseEntity);
         return responseEntity;
     }
+
+
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         GenericDto dto = GenericDto.builder().error(apiError).build();

@@ -9,8 +9,10 @@ spring:
     data:
       enabled: true
       entities-package: com.some.package
+      persistence-unit: utils
       heroku:
-        url-env-name: HEROKU_POSTGRESQL_TEAL_URL
+        jdbc-url-template: jdbc:_DB_TYPE_://_HOST_:_PORT__PATH_?currentSchema=_SCHEMA_
+        url-env-name: HEROKU_THE_DB_URL
         db-schema: public
         db-type: postgresql
 

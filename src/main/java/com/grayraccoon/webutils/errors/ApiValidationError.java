@@ -22,5 +22,4 @@ public class ApiValidationError extends ApiSubError {
     public ApiValidationError(Object rejectedValue) {
         this.rejectedValue = rejectedValue;
     }
-
 }

@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
@@ -46,6 +47,9 @@ public class UtilsDataSourceConfig {
     @Value("${spring.web-utils.data.entities-package}")
     private String entitiesPackage;
 
+    @Value("${spring.web-utils.data.persistence-unit}")
+    private String persistenceUnit;
+
     /**
      * Creates programmatically the dataSource bean for the postgres DB connection.
      *
@@ -58,6 +62,9 @@ public class UtilsDataSourceConfig {
         if (!Arrays.asList(environment.getActiveProfiles()).contains("heroku")) {
             return DataSourceBuilder.create().build();
         }
+
+        final String jdbcUrlTemplate
+                = environment.getProperty("spring.web-utils.data.heroku.jdbc-url-template");
         final String herokuDatabaseUrlEnvName
                 = environment.getProperty("spring.web-utils.data.heroku.url-env-name");
         final String schema
@@ -65,33 +72,45 @@ public class UtilsDataSourceConfig {
         final String dbType
                 = environment.getProperty("spring.web-utils.data.heroku.db-type");
 
+        Objects.requireNonNull(herokuDatabaseUrlEnvName);
+        Objects.requireNonNull(jdbcUrlTemplate);
+
         LOGGER.info("getDataSource(): env-name {}", herokuDatabaseUrlEnvName);
 
-        final String dbUrl = System.getenv(herokuDatabaseUrlEnvName);
+        final String dbUrl = environment.getProperty(herokuDatabaseUrlEnvName);
 
         LOGGER.info("getDataSource(): env {}", dbUrl);
 
+        Objects.requireNonNull(dbUrl);
         final URI dbUri = new URI(dbUrl);
 
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbFormatedUrl = String.format("jdbc:%s://%s:%s%s?currentSchema=%s",
-                dbType,
-                dbUri.getHost(),
-                String.valueOf(dbUri.getPort()),
-                dbUri.getPath(),
-                schema
-        );
+        final String username = dbUri.getUserInfo().split(":")[0];
+        final String password = dbUri.getUserInfo().split(":")[1];
+        final String path = dbUri.getPath();
+
+        final Map<String, String> dbInfo = new HashMap<String, String>(){{
+            put("_DB_TYPE_", dbType);
+            put("_HOST_", dbUri.getHost());
+            put("_PORT_", String.valueOf(dbUri.getPort()));
+            put("_PATH_", path);
+            put("_DB_", path.replace("/", ""));
+            put("_SCHEMA_", schema);
+        }};
+
+        String dbFormattedUrl = jdbcUrlTemplate;
+        for (final String key : dbInfo.keySet()) {
+            dbFormattedUrl = dbFormattedUrl.replace(key, dbInfo.get(key));
+        }
 
         LOGGER.info("user: {}", username);
         LOGGER.info("pass: {}", password);
-        LOGGER.info("url: {}", dbFormatedUrl);
+        LOGGER.info("url: {}", dbFormattedUrl);
 
         return DataSourceBuilder
                 .create()
                 .username(username)
                 .password(password)
-                .url(dbFormatedUrl)
+                .url(dbFormattedUrl)
                 .build();
     }
 
@@ -118,7 +137,7 @@ public class UtilsDataSourceConfig {
         return builder
                 .dataSource(dataSource)
                 .packages(entitiesPackage)    // Domain Package
-                .persistenceUnit("utils")
+                .persistenceUnit(persistenceUnit)
                 .properties(props)
                 .build();
     }

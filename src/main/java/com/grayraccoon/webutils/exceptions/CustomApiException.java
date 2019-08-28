@@ -1,28 +1,20 @@
 package com.grayraccoon.webutils.exceptions;
 
 import com.grayraccoon.webutils.errors.ApiError;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author Heriberto Reyes Esparza <hery.chemo@gmail.com>
  */
+@ToString
 public class CustomApiException extends RuntimeException {
 
+    @Getter
     private ApiError apiError;
 
     public CustomApiException(ApiError apiError) {
         super(apiError.getMessage(), apiError.getThrowable());
         this.apiError = apiError;
-    }
-
-    public ApiError getApiError() {
-        return apiError;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("apiError", apiError)
-                .toString();
     }
 }

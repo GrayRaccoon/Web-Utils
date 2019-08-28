@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public interface CustomValidatorService {
 
-    public Set<ApiValidationError> validateObject(Object object);
+    Set<ApiValidationError> validateObject(Object object);
 
     ApiValidationError getApiValidationErrorFromConstraintViolation(ConstraintViolation<?> violation);
 

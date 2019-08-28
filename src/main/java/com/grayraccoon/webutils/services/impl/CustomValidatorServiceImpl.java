@@ -22,14 +22,21 @@ public class CustomValidatorServiceImpl implements CustomValidatorService {
     private Validator validator;
 
     public CustomValidatorServiceImpl() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+        getValidator();
+    }
+
+    private Validator getValidator() {
+        if (validator == null) {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            validator = factory.getValidator();
+        }
+        return validator;
     }
 
     @Override
     public Set<ApiValidationError> validateObject(Object object) {
         Set<ConstraintViolation<Object>> constraintViolations
-                = validator.validate( object );
+                = getValidator().validate( object );
         return constraintViolations.stream()
                 .map(this::getApiValidationErrorFromConstraintViolation)
                 .collect(Collectors.toSet());
