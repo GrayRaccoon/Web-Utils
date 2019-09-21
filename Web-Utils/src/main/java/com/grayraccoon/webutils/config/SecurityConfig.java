@@ -66,10 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource utilsDataSource;
 
-    @Autowired
+    @Autowired(required = false)
     private BaseUserService baseUserService;
 
-    @Autowired
+    @Autowired(required = false)
     private UserDetailsService userDetailsService;
 
     @Autowired
