@@ -5,6 +5,7 @@ import com.grayraccoon.webutils.config.beans.services.SimpleUserService;
 import com.grayraccoon.webutils.config.beans.ws.UsersWebService;
 import com.grayraccoon.webutils.errors.ApiError;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
+import com.grayraccoon.webutils.services.CustomValidatorService;
 import com.grayraccoon.webutils.services.impl.CustomValidatorServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -41,8 +42,10 @@ public class WebServicesTests {
 
     @Before
     public void setup() {
+        final CustomValidatorServiceImpl customValidatorService = new CustomValidatorServiceImpl();
+        customValidatorService.getValidator();
         final RestExceptionHandler restExceptionHandler = new RestExceptionHandler();
-        restExceptionHandler.setCustomValidatorService(new CustomValidatorServiceImpl());
+        restExceptionHandler.setCustomValidatorService(customValidatorService);
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(usersWebService)
                 .setControllerAdvice(restExceptionHandler)

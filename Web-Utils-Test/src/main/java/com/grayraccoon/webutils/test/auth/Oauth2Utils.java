@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public final class Oauth2Utils {
 
-    private static final Oauth2Params oauth2Params = new Oauth2Params();
+    public static final Oauth2Params oauth2Params = new Oauth2Params();
 
     private Oauth2Utils() {}
 
@@ -72,7 +72,7 @@ public final class Oauth2Utils {
         String redirectUrl = "http://my-redirect-url.com";
         Set<String> responseTypes = Collections.emptySet();
         Set<String> scopes = Collections.emptySet();
-        Set<String> resourceIds = Collections.emptySet();
+        Set<String> resourceIds = Collections.singleton(oauth2Params.getResource_id());
         Map<String, Serializable> extensionProperties = Collections.emptyMap();
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("whatever");
 
@@ -102,6 +102,14 @@ public final class Oauth2Utils {
         details.put("username", "admin");
         details.put("name", "Some User");
         return details;
+    }
+
+    public static Map<String, Object> getExtraInfo(Authentication auth) {
+        OAuth2AuthenticationDetails oauthDetails
+                = (OAuth2AuthenticationDetails) auth.getDetails();
+        //noinspection unchecked
+        return (Map<String, Object>) oauthDetails
+                .getDecodedDetails();
     }
 
 }

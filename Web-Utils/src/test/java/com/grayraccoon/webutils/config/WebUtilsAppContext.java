@@ -24,5 +24,4 @@ import org.springframework.util.ResourceUtils;
 @EnableWebUtils
 @EnableOauth2Server
 @EnableWebUtilsDataSource
-public class WebUtilsAppContext {
-}
+public class WebUtilsAppContext { }

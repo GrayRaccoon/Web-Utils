@@ -1,4 +1,6 @@
 
+server.port: 26142
+
 spring:
   # Web-Utils Configuration
   web-utils:
@@ -36,7 +38,7 @@ spring:
           enabled: false
           client-id: test-client-id
           client-secret: test-client-secret
-          check-token-url: http://external.oauth2server.com/oauth/check_token
+          check-token-url: http://localhost:26142/oauth/check_token
 
 
   jpa:

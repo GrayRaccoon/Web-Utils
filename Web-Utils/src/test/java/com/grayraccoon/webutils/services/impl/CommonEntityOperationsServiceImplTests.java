@@ -44,6 +44,7 @@ public class CommonEntityOperationsServiceImplTests {
         Mockito.when(customValidatorService.getApiValidationErrorFromConstraintViolation(ArgumentMatchers.any()))
                 .thenCallRealMethod();
         Mockito.when(someEntityRepository.save(ArgumentMatchers.any(SomeEntity.class))).thenCallRealMethod();
+        Mockito.when(customValidatorService.getValidator()).thenCallRealMethod();
     }
 
     @Test

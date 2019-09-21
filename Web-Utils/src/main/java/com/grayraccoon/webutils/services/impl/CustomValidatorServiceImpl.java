@@ -25,7 +25,7 @@ public class CustomValidatorServiceImpl implements CustomValidatorService {
         getValidator();
     }
 
-    private Validator getValidator() {
+    public Validator getValidator() {
         if (validator == null) {
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             validator = factory.getValidator();

@@ -12,4 +12,5 @@ public class Oauth2Params implements Serializable {
     private String grant_type = "password";
     private String client_id = "test-client-id";
     private String secret_id = "test-client-secret";
+    private String resource_id = "test-resource-id";
 }

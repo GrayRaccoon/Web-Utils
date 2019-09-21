@@ -5,6 +5,7 @@ import com.grayraccoon.webutils.config.components.CustomAccessTokenConverter;
 import com.grayraccoon.webutils.config.components.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -91,6 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // Oauth2 Server Config Starts
 
     @Bean
+    @ConditionalOnMissingBean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
