@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.grayraccoon</groupId>
+    <groupId>com.grayraccoon.Web-Utils</groupId>
     <artifactId>cloud-svc-parent</artifactId>
     <version>0.2.4-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -112,7 +112,7 @@
 
 
         <dependency>
-            <groupId>com.grayraccoon</groupId>
+            <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils</artifactId>
             <version>${web-utils-version}</version>
         </dependency>
@@ -170,7 +170,7 @@
 
 
         <dependency>
-            <groupId>com.grayraccoon</groupId>
+            <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils-test</artifactId>
             <version>${web-utils-version}</version>
         </dependency>

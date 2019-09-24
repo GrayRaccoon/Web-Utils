@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.grayraccoon</groupId>
+    <groupId>com.grayraccoon.Web-Utils</groupId>
     <artifactId>web-utils-test</artifactId>
     <version>0.2.4-SNAPSHOT</version>
     <packaging>jar</packaging>
