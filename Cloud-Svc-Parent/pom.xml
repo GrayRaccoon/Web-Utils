@@ -13,7 +13,7 @@
 
     <groupId>com.grayraccoon</groupId>
     <artifactId>cloud-svc-parent</artifactId>
-    <version>0.2.3-SNAPSHOT</version>
+    <version>0.2.3</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -27,7 +27,7 @@
         <!--
         <ancira-searchbox-domain-version>0.2.4-SNAPSHOT</ancira-searchbox-domain-version>
         -->
-        <web-utils-version>0.2.3-SNAPSHOT</web-utils-version>
+        <web-utils-version>0.2.3</web-utils-version>
 
         <commons-lang3-version>3.8.1</commons-lang3-version>
         <commons-io-version>2.6</commons-io-version>
