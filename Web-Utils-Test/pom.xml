@@ -13,7 +13,7 @@
 
     <groupId>com.grayraccoon</groupId>
     <artifactId>web-utils-test</artifactId>
-    <version>0.2.3</version>
+    <version>0.2.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

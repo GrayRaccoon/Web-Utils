@@ -13,7 +13,7 @@
 
     <groupId>com.grayraccoon</groupId>
     <artifactId>web-utils</artifactId>
-    <version>0.2.3</version>
+    <version>0.2.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -25,7 +25,7 @@
         <spring-security-oauth2-version>2.3.5.RELEASE</spring-security-oauth2-version>
         <spring-security-jwt-version>1.0.10.RELEASE</spring-security-jwt-version>
 
-        <web-utils-test-version>0.2.3</web-utils-test-version>
+        <web-utils-test-version>0.2.4-SNAPSHOT</web-utils-test-version>
 
         <commons-lang3-version>3.9</commons-lang3-version>
         <commons-io-version>2.6</commons-io-version>
