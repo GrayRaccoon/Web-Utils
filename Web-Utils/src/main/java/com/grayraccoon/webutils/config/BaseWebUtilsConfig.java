@@ -11,6 +11,7 @@ import org.springframework.util.ResourceUtils;
  */
 @Import({
         TaskPoolConfiguration.class,
+        AsynchronousSpringEventsConfig.class,
         WebConfig.class
 })
 @SpringBootApplication(

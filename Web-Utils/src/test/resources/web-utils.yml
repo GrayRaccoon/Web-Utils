@@ -9,6 +9,8 @@ spring:
       corePoolSize: 4
       queueCapacity: 8
       threadNamePrefix: Async-tests-
+      scheduledTasksPoolSize: 40
+      scheduledTasksPoolNamePrefix: Scheduling-
     data:
       enabled: true
       # Jpa Entities Package

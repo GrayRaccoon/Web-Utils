@@ -32,7 +32,14 @@ public class AsyncTaskExecutorProperties {
     @Min(0)
     private Integer queueCapacity;
 
+    @NotNull
+    @Min(0)
+    private Integer scheduledTasksPoolSize;
+
     @NotEmpty
     private String threadNamePrefix;
+
+    @NotEmpty
+    private String scheduledTasksPoolNamePrefix;
 
 }

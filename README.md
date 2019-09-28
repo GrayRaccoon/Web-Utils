@@ -33,7 +33,7 @@ or use Cloud-Svc-Parent as parent project
 <project>
 
     <properties>
-        <web-utils-version>0.2.4-SNAPSHOT</web-utils-version>
+        <web-utils-version>0.2.5-SNAPSHOT</web-utils-version>
     </properties>
     
     <dependencies>
@@ -67,7 +67,7 @@ or use Cloud-Svc-Parent as parent project
     <parent>
         <groupId>com.grayraccoon.Web-Utils</groupId>
         <artifactId>cloud-svc-parent</artifactId>
-        <version>0.2.4-SNAPSHOT</version>
+        <version>0.2.5-SNAPSHOT</version>
         <relativePath/>
     </parent>
     

@@ -6,6 +6,8 @@ spring:
       corePoolSize: 20
       queueCapacity: 100
       threadNamePrefix: Async-Exec-
+      scheduledTasksPoolSize: 40
+      scheduledTasksPoolNamePrefix: Scheduling-
     data:
       enabled: true
       entities-package: com.some.package
