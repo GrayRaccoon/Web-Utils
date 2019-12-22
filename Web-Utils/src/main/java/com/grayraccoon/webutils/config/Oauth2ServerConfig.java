@@ -88,6 +88,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .accessTokenConverter(accessTokenConverter)
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
+                .reuseRefreshTokens(false)
                 .userDetailsService(userDetailsService);    // we need this to make refresh token work
     }
 
