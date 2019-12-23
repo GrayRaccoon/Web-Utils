@@ -1,8 +1,12 @@
 # Web-Utils
 A Simple Spring Web Utils Maven Project for building Spring Cloud based MicroServices.
 
-[![Release](https://jitpack.io/v/com.grayraccoon/Web-Utils.svg)]
-(https://jitpack.io/#com.grayraccoon/Web-Utils)
+
+[![Build Status](https://gitlab.com/GrayRaccoon/grayraccoon.gitlab.io/badges/master/pipeline.svg)](
+https://gitlab.com/herychemo/Web-Utils)
+[![Release](https://jitpack.io/v/com.grayraccoon/Web-Utils.svg)](
+https://jitpack.io/#com.grayraccoon/Web-Utils)
+
 
 ### Artifacts
 * Web-Utils: _Spring Web Commons Configuration library._
