@@ -44,9 +44,9 @@ public final class Oauth2Utils {
                 = mockMvc.perform(post("/oauth/token")
                 .params(params)
                 .with(httpBasic(oauth2Params.getClient_id(),oauth2Params.getSecret_id()))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.access_token", Matchers.notNullValue()));
 
         String resultString = result.andReturn().getResponse().getContentAsString();

@@ -58,9 +58,9 @@ public class WebUtilsContextOauth2ResourceServerOnlyIT {
 
         mockMvc.perform(get("/ws/authenticated/userId")
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.userId", Matchers.notNullValue()))
         ;
     }

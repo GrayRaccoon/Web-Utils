@@ -64,9 +64,9 @@ public class WebServicesTests {
         );
 
         mockMvc.perform(get("/ws/secured/users")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist());
     }
@@ -83,9 +83,9 @@ public class WebServicesTests {
         );
 
         mockMvc.perform(get("/ws/secured/users")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist());
     }
@@ -95,9 +95,9 @@ public class WebServicesTests {
         mockMvc.perform(post("/ws/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"some\": 123")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist());
     }

@@ -65,9 +65,9 @@ public class WebServicesIT {
 
         mockMvc.perform(get("/ws/secured/users")
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.data", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.error").doesNotExist())
                 .andExpect(jsonPath("$.data", hasSize(2)))
@@ -81,9 +81,9 @@ public class WebServicesIT {
     @Test
     public void findAllUsers_Unauthorized_Test() throws Exception {
         mockMvc.perform(get("/ws/secured/users")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())   //  401
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist())
         ;
@@ -95,9 +95,9 @@ public class WebServicesIT {
 
         mockMvc.perform(get("/ws/secured/users")
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden())   //  403
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.data").doesNotExist())
         ;
@@ -111,9 +111,9 @@ public class WebServicesIT {
 
         mockMvc.perform(get(String.format("/ws/secured/users/%s", user_userId))
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())   //  404
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.data").doesNotExist())
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.error.message", is("Not Found")))

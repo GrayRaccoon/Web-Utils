@@ -88,9 +88,9 @@ public class WebServicesWithHystrixIT {
 
         mockMvc.perform(get("/ws/secured/users")
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isServiceUnavailable())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.data").doesNotExist())
                 .andExpect(jsonPath("$.error", Matchers.notNullValue()))
         ;

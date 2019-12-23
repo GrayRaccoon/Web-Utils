@@ -73,9 +73,9 @@ public class Oauth2UtilsIT {
 
         mockMvc.perform(get("/ws/authenticated/principal")
                 .header("Authorization", "Bearer " + access_token)
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.userId", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.username", Matchers.notNullValue()))
                 .andExpect(jsonPath("$.email", Matchers.notNullValue()))

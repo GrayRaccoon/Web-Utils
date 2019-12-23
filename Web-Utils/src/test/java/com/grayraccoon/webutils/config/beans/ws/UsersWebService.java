@@ -53,7 +53,7 @@ public class UsersWebService extends BaseWebService {
     @HystrixCommand(commandKey = "createUser", groupKey = "Users")
     @PostMapping(value = "/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public GenericDto<?> createUser(
             @RequestBody final UsersEntity usersEntity) {
         LOGGER.info("createUser(): {}", usersEntity);
