@@ -26,6 +26,10 @@
         <jaxb-api-version>2.4.0-b180830.0359</jaxb-api-version>
         <javax-activation-version>1.1.1</javax-activation-version>
         <jaxb-runtime-version>2.4.0-b180830.0438</jaxb-runtime-version>
+
+        <spring-security-oauth2-version>2.3.6.RELEASE</spring-security-oauth2-version>
+        <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
+        <spring-security-core.version>5.2.1.RELEASE</spring-security-core.version>
     </properties>
 
 
@@ -38,7 +42,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.10.RELEASE</version>
+            <version>${spring-security-jwt.version}</version>
         </dependency>
 
         <dependency>
@@ -51,13 +55,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.2.1.RELEASE</version>
+            <version>${spring-security-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.6.RELEASE</version>
+            <version>${spring-security-oauth2-version}</version>
         </dependency>
 
         <dependency>
@@ -94,7 +98,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>2.22.2</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
