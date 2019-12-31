@@ -1,18 +1,18 @@
 package com.grayraccoon.webutils;
 
 import com.grayraccoon.webutils.config.WebUtilsAppContext;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author Heriberto Reyes Esparza
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebUtilsAppContext.class)
 @TestPropertySource(properties = {
         "spring.web-utils.data.heroku.jdbc-url-template=jdbc:_DB_TYPE_:_HOST_:_DB_;MODE=PostgreSQL;" +

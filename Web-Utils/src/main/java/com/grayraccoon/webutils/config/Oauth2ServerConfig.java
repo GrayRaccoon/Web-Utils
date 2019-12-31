@@ -29,7 +29,7 @@ import java.util.Arrays;
 @ConditionalOnProperty(
         value="spring.web-utils.security.oauth2-server.enabled",
         havingValue = "true",
-        matchIfMissing = true)
+        matchIfMissing = false)
 public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired

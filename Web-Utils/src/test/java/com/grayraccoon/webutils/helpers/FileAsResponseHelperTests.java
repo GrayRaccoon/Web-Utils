@@ -3,11 +3,11 @@ package com.grayraccoon.webutils.helpers;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * @author Heriberto Reyes Esparza
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FileAsResponseHelperTests {
 
     private static final String BASIC_STRING_CONTENT = "1234-abcd!";
@@ -133,7 +133,7 @@ public class FileAsResponseHelperTests {
         validateOutput(response, actualContent, null, null);
     }
 
-    @Test(expected = CustomApiException.class)
+    @Test
     public void writeContentAsFileResponse_InputStream_AllArgs_Fail() throws IOException {
         final MockHttpServletResponse response = new MockHttpServletResponse();
         final byte[] actualContent = BASIC_STRING_CONTENT.getBytes(StandardCharsets.UTF_8);
@@ -144,12 +144,10 @@ public class FileAsResponseHelperTests {
         ).thenThrow(new IOException("Some Crazy Error!"));
 
         final String contentType = MediaType.TEXT_HTML_VALUE;
-        final String fileName = FILENAME;
 
-        FileAsResponseHelper.writeContentAsFileResponse(response, content,
-                contentType, fileName);
-
-        validateOutput(response, actualContent, contentType, fileName);
+        org.junit.jupiter.api.Assertions.assertThrows(CustomApiException.class, () ->
+                FileAsResponseHelper.writeContentAsFileResponse(response, content,
+                        contentType, FILENAME));
     }
 
 

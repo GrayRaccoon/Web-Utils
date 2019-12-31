@@ -22,7 +22,7 @@ public class YmlPropertyLoaderFactory extends DefaultPropertySourceFactory {
         return new PropertiesPropertySource(sourceName, propertiesFromYaml);
     }
 
-    private Properties loadYamlIntoProperties(EncodedResource resource) throws FileNotFoundException {
+    protected Properties loadYamlIntoProperties(EncodedResource resource) throws FileNotFoundException {
         try {
             YamlPropertiesFactoryBean factory = new YamlPropertiesFactoryBean();
             factory.setResources(resource.getResource());

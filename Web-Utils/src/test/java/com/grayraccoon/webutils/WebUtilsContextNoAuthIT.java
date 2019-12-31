@@ -4,7 +4,6 @@ import com.grayraccoon.webutils.config.WebUtilsAppContext;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -13,12 +12,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebUtilsAppContext.class)
-@TestPropertySource(properties = {
-        "spring.web-utils.security.oauth2-server.enabled=false",
-        "spring.web-utils.security.oauth2-resource.enabled=false",
-        "spring.web-utils.security.oauth2-resource.remote-token-services.enabled=false",
-})
-public class WebUtilsContextIT extends AbstractJUnit4SpringContextTests {
+public class WebUtilsContextNoAuthIT extends AbstractJUnit4SpringContextTests {
     @Test
     public void contextLoads() { }
 }

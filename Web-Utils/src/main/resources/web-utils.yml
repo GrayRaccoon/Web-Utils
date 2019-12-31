@@ -37,11 +37,11 @@ spring:
       allow-all-cors: false
     security:
       oauth2-server:
-        enabled: true
+        enabled: false
         signing-key: 8B9kTV0FfUwa76R #https://www.random.org/strings/ 15 length
         security-realm: Web-Utils powered Backend
       oauth2-resource:
-        enabled: true
+        enabled: false
         local-resource-id: server-resource-id
         secured-matchers: >
           /**/authenticated/**,

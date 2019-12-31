@@ -6,14 +6,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
-
-import java.util.Map;
 
 /**
  * @author Heriberto Reyes Esparza
@@ -23,7 +19,7 @@ import java.util.Map;
 @ConditionalOnProperty(
         value="spring.web-utils.security.oauth2-resource.enabled",
         havingValue = "true",
-        matchIfMissing = true)
+        matchIfMissing = false)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired

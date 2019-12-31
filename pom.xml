@@ -5,7 +5,7 @@
 
 	<groupId>com.grayraccoon.Web-Utils</groupId>
 	<artifactId>web-utils-root</artifactId>
-	<version>0.2.6-SNAPSHOT</version>
+	<version>0.2.7-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Web Utils</name>
@@ -14,6 +14,7 @@
 	<modules>
 		<module>Web-Utils-Test</module>
 		<module>Web-Utils</module>
+		<module>Cloud-Svc-Parent-No-Persistence</module>
 		<module>Cloud-Svc-Parent</module>
 	</modules>
 

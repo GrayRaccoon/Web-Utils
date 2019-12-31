@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String tokenServicesCheckTokenUrl;
 
 
-    @Autowired
+    @Autowired(required = false)
     private DataSource utilsDataSource;
 
     @Autowired(required = false)
@@ -125,7 +125,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public JwtAccessTokenConverter accessTokenConverter() {
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(signingKey);
@@ -138,7 +138,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public ApprovalStore approvalStore() {
         final ApprovalStore approvalStore = new JdbcApprovalStore(utilsDataSource);
         return approvalStore;
@@ -148,7 +148,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public TokenStore tokenStore() {
         return new JdbcTokenStore(utilsDataSource);
     }
@@ -157,7 +157,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public JdbcAuthorizationCodeServices jdbcAuthorizationCodeServices() {
         return new JdbcAuthorizationCodeServices(utilsDataSource);
     }
@@ -167,7 +167,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     //Making this primary to avoid any accidental duplication with another token service instance of the same name
     public DefaultTokenServices tokenServices() {
         final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
@@ -184,7 +184,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-server.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public TokenEnhancer tokenEnhancer() {
         return new CustomTokenEnhancer(baseUserService);
     }
@@ -219,7 +219,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnProperty(
             value="spring.web-utils.security.oauth2-resource.enabled",
             havingValue = "true",
-            matchIfMissing = true)
+            matchIfMissing = false)
     public RequestContextListener requestContextListener() {
         return new RequestContextListener();
     }

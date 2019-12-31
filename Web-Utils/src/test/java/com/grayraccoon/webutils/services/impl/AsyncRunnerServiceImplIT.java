@@ -3,15 +3,15 @@ package com.grayraccoon.webutils.services.impl;
 import com.grayraccoon.webutils.config.WebUtilsAppContext;
 import com.grayraccoon.webutils.services.AsyncRunnerService;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author Heriberto Reyes Esparza
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebUtilsAppContext.class)
 public class AsyncRunnerServiceImplIT extends AbstractJUnit4SpringContextTests {
 
@@ -29,7 +29,7 @@ public class AsyncRunnerServiceImplIT extends AbstractJUnit4SpringContextTests {
     @Autowired
     private AsyncRunnerService asyncRunnerService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {}
 
     @Test
@@ -67,14 +67,10 @@ public class AsyncRunnerServiceImplIT extends AbstractJUnit4SpringContextTests {
         Assertions.assertThat(result).isEqualTo(0);
     }
 
-    @Test(expected = RuntimeException.class)
-    public void doSomeWorkWithoutArgsAndThrowAsync_Success() throws ExecutionException, InterruptedException {
+    @Test
+    public void doSomeWorkWithoutArgsAndThrowAsync_Success() {
         CompletableFuture<Integer> future = this.doSomeWorkWithoutArgsAndThrowAsync();
-        future.join();
-        final Integer result = future.get();
-        LOGGER.info("Future Result: {}", result);
-        Assertions.assertThat(result).isNotNull();
-        Assertions.assertThat(result).isEqualTo(0);
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, future::join);
     }
 
 

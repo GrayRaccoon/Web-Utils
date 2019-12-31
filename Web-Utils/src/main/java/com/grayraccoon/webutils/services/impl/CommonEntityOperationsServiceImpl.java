@@ -8,6 +8,7 @@ import com.grayraccoon.webutils.services.CustomValidatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ import java.util.Set;
  * @author Heriberto Reyes Esparza
  */
 @Service
+@ConditionalOnClass(CrudRepository.class)
 public class CommonEntityOperationsServiceImpl implements CommonEntityOperationsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonEntityOperationsServiceImpl.class);

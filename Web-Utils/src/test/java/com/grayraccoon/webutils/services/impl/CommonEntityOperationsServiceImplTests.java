@@ -5,14 +5,14 @@ import com.grayraccoon.webutils.exceptions.CustomApiException;
 import lombok.Builder;
 import lombok.Data;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.Id;
@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * @author Heriberto Reyes Esparza
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CommonEntityOperationsServiceImplTests {
 
     @InjectMocks
@@ -36,19 +36,15 @@ public class CommonEntityOperationsServiceImplTests {
     private SomeEntityRepository someEntityRepository;
 
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         Mockito.when(customValidatorService.validateObject(ArgumentMatchers.any())).thenCallRealMethod();
-        Mockito.when(customValidatorService.getApiErrorFromApiValidationErrors(ArgumentMatchers.anySet()))
-                .thenCallRealMethod();
-        Mockito.when(customValidatorService.getApiValidationErrorFromConstraintViolation(ArgumentMatchers.any()))
-                .thenCallRealMethod();
-        Mockito.when(someEntityRepository.save(ArgumentMatchers.any(SomeEntity.class))).thenCallRealMethod();
         Mockito.when(customValidatorService.getValidator()).thenCallRealMethod();
     }
 
     @Test
     public void validateAndSaveEntity_NoCallbacks_Success() {
+        mockSave();
         final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
                 this.someEntityRepository,
                 createBasicSomeEntity()
@@ -56,18 +52,22 @@ public class CommonEntityOperationsServiceImplTests {
         validateBasicSomeEntity(resultedEntity);
     }
 
-    @Test(expected = CustomApiException.class)
+    @Test
     public void validateAndSaveEntity_NoCallbacks_Fail() {
+        mockApiErrorToConstraint();
+        mockApiErrorFromValidations();
         final SomeEntity invalidEntity = SomeEntity.builder()
                 .id(1)
                 .build();
-        final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
-                this.someEntityRepository, invalidEntity);
-        validateBasicSomeEntity(resultedEntity);
+
+        org.junit.jupiter.api.Assertions.assertThrows(CustomApiException.class, () ->
+                commonEntityOperationsService.validateAndSaveEntity(
+                        this.someEntityRepository, invalidEntity));
     }
 
     @Test
     public void validateAndSaveEntity_WithManualTest_Success() {
+        mockSave();
         final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
                 this.someEntityRepository,
                 createBasicSomeEntity(),
@@ -76,18 +76,20 @@ public class CommonEntityOperationsServiceImplTests {
         validateBasicSomeEntity(resultedEntity);
     }
 
-    @Test(expected = CustomApiException.class)
+    @Test
     public void validateAndSaveEntity_WithManualTest_Fail() {
-        final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
-                this.someEntityRepository,
-                createBasicSomeEntity().toBuilder().id(1).build(),
-                this::performSomeManualValidation
-        );
-        validateBasicSomeEntity(resultedEntity);
+        mockApiErrorFromValidations();
+        org.junit.jupiter.api.Assertions.assertThrows(CustomApiException.class, () ->
+                commonEntityOperationsService.validateAndSaveEntity(
+                        this.someEntityRepository,
+                        createBasicSomeEntity().toBuilder().id(1).build(),
+                        this::performSomeManualValidation
+                ));
     }
 
     @Test
     public void validateAndSaveEntity_WithPostProcessing_Success() {
+        mockSave();
         final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
                 this.someEntityRepository,
                 createBasicSomeEntity(),
@@ -98,6 +100,7 @@ public class CommonEntityOperationsServiceImplTests {
 
     @Test
     public void validateAndSaveEntity_WithManualTestAndPostProcessing_Success() {
+        mockSave();
         final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
                 this.someEntityRepository,
                 createBasicSomeEntity(),
@@ -107,15 +110,17 @@ public class CommonEntityOperationsServiceImplTests {
         validateBasicSomeEntity(resultedEntity, 10);
     }
 
-    @Test(expected = CustomApiException.class)
+    @Test
     public void validateAndSaveEntity_WithManualTestAndPostProcessing_Fail() {
-        final SomeEntity resultedEntity = commonEntityOperationsService.validateAndSaveEntity(
-                this.someEntityRepository,
-                createBasicSomeEntity().toBuilder().id(1).build(),
-                this::performSomeManualValidation,
-                this::performSomePostProcessing
-        );
-        validateBasicSomeEntity(resultedEntity, 10);
+        mockApiErrorFromValidations();
+
+        org.junit.jupiter.api.Assertions.assertThrows(CustomApiException.class, () ->
+                commonEntityOperationsService.validateAndSaveEntity(
+                        this.someEntityRepository,
+                        createBasicSomeEntity().toBuilder().id(1).build(),
+                        this::performSomeManualValidation,
+                        this::performSomePostProcessing
+                ));
     }
 
 
@@ -151,6 +156,24 @@ public class CommonEntityOperationsServiceImplTests {
         Assertions.assertThat(resultedEntity.getIrrelevantField()).isNotNull();
         Assertions.assertThat(resultedEntity.getIrrelevantField()).isEqualTo(irrelevantValue);
     }
+
+
+    private void mockSave() {
+        Mockito.when(someEntityRepository.save(ArgumentMatchers.any(SomeEntity.class))).thenCallRealMethod();
+    }
+
+    private void mockApiErrorToConstraint() {
+        Mockito.when(customValidatorService
+                .getApiValidationErrorFromConstraintViolation(ArgumentMatchers.any()))
+                .thenCallRealMethod();
+    }
+
+    private void mockApiErrorFromValidations() {
+        Mockito.when(customValidatorService.getApiErrorFromApiValidationErrors(ArgumentMatchers.anySet()))
+                .thenCallRealMethod();
+    }
+
+
 
     @Data
     @Builder(toBuilder = true)

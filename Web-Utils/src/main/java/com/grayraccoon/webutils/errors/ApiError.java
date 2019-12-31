@@ -50,10 +50,15 @@ public class ApiError {
             Throwable throwable,
             @Singular List<ApiSubError> subErrors) {
         this();
-        this.status = status != null ? status: throwable != null ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST;
-        this.code = StringUtils.isNotBlank(code) ? code : String.valueOf(this.status.value());
-        this.message = StringUtils.isNotBlank(message) ? message : this.status.getReasonPhrase();
-        this.debugMessage = StringUtils.isNotBlank(debugMessage) ? debugMessage : throwable != null ? throwable.getLocalizedMessage() : "";
+        this.status = status != null ? status: throwable != null
+                ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.BAD_REQUEST;
+        this.code = StringUtils.isNotBlank(code)
+                ? code : String.valueOf(this.status.value());
+        this.message = StringUtils.isNotBlank(message)
+                ? message : this.status.getReasonPhrase();
+        this.debugMessage = StringUtils.isNotBlank(debugMessage)
+                ? debugMessage : throwable != null
+                ? throwable.getLocalizedMessage() : "";
         this.throwable = throwable;
         this.subErrors = subErrors;
     }

@@ -5,16 +5,15 @@ import com.grayraccoon.webutils.config.beans.services.SimpleUserService;
 import com.grayraccoon.webutils.config.beans.ws.UsersWebService;
 import com.grayraccoon.webutils.errors.ApiError;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
-import com.grayraccoon.webutils.services.CustomValidatorService;
 import com.grayraccoon.webutils.services.impl.CustomValidatorServiceImpl;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -29,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Heriberto Reyes Esparza
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class WebServicesTests {
 
     @InjectMocks
@@ -40,7 +39,7 @@ public class WebServicesTests {
 
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         final CustomValidatorServiceImpl customValidatorService = new CustomValidatorServiceImpl();
         customValidatorService.getValidator();

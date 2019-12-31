@@ -14,13 +14,13 @@ public class CustomAccessTokenConverter extends DefaultAccessTokenConverter {
 
     @Override
     public OAuth2Authentication extractAuthentication(Map<String, ?> claims) {
-        OAuth2Authentication authentication = super.extractAuthentication(claims);
+        final OAuth2Authentication authentication = super.extractAuthentication(claims);
         authentication.setDetails(claims);
         return authentication;
     }
 
     public static Map<String, Object> getExtraInfo(Authentication auth) {
-        OAuth2AuthenticationDetails oauthDetails
+        final OAuth2AuthenticationDetails oauthDetails
                 = (OAuth2AuthenticationDetails) auth.getDetails();
         //noinspection unchecked
         return (Map<String, Object>) oauthDetails
