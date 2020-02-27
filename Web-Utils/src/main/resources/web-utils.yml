@@ -14,9 +14,18 @@ spring:
       persistence-unit: utils
       heroku:
         jdbc-url-template: jdbc:_DB_TYPE_://_HOST_:_PORT__PATH_?currentSchema=_SCHEMA_
-        url-env-name: HEROKU_THE_DB_URL
+        url-env-name: HEROKU_DB_URL
         db-schema: public
         db-type: postgresql
+      heroku-datasource:
+        # Pool Properties
+        maximumPoolSize: ${spring.web-utils.data.datasource.maximumPoolSize}
+        minimumIdle: ${spring.web-utils.data.datasource.minimumIdle}
+
+        #Connection test timing and intervals properties
+        connectionTimeout: ${spring.web-utils.data.datasource.connectionTimeout}
+        idleTimeout: ${spring.web-utils.data.datasource.idleTimeout}
+        maxLifetime: ${spring.web-utils.data.datasource.maxLifetime}
 
       datasource:
         # Connection Properties

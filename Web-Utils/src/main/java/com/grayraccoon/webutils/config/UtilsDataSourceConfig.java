@@ -1,5 +1,6 @@
 package com.grayraccoon.webutils.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -51,18 +53,30 @@ public class UtilsDataSourceConfig {
     private String persistenceUnit;
 
     /**
-     * Creates programmatically the dataSource bean for the postgres DB connection.
+     * Creates programmatically the dataSource bean for the DB connection.
+     * Using standard datasource configuration.
      *
      * @return javax.sql.DataSource
      */
     @Primary
     @Bean("utilsDataSource")
+    @Profile("!heroku")
     @ConfigurationProperties(prefix="spring.web-utils.data.datasource")
-    public DataSource getDataSource() throws URISyntaxException {
-        if (!Arrays.asList(environment.getActiveProfiles()).contains("heroku")) {
-            return DataSourceBuilder.create().build();
-        }
+    public DataSource getDataSource() {
+        return DataSourceBuilder.create().build();
+    }
 
+    /**
+     * Creates programmatically the dataSource bean for the DB connection.
+     * Using Heroku environment configuration.
+     *
+     * @return javax.sql.DataSource
+     */
+    @Primary
+    @Profile("heroku")
+    @Bean("utilsDataSource")
+    @ConfigurationProperties(prefix="spring.web-utils.data.heroku-datasource")
+    public DataSource getHerokuDataSource() throws URISyntaxException {
         final String jdbcUrlTemplate
                 = environment.getProperty("spring.web-utils.data.heroku.jdbc-url-template");
         final String herokuDatabaseUrlEnvName
@@ -108,6 +122,7 @@ public class UtilsDataSourceConfig {
 
         return DataSourceBuilder
                 .create()
+                .type(HikariDataSource.class)
                 .username(username)
                 .password(password)
                 .url(dbFormattedUrl)
@@ -125,11 +140,11 @@ public class UtilsDataSourceConfig {
     @Primary
     @Bean(name = "utilsEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder,
-            @Qualifier("utilsDataSource") DataSource dataSource
+            final EntityManagerFactoryBuilder builder,
+            @Qualifier("utilsDataSource") final  DataSource dataSource
     ) {
-        Map<String, Object> props = new HashMap<>();
-        Map<String, Object> jpaProperties = new HashMap<>();
+        final Map<String, Object> props = new HashMap<>();
+        final Map<String, Object> jpaProperties = new HashMap<>();
 
         props.put("jpaDialect", org.springframework.orm.jpa.vendor.HibernateJpaDialect.class);
         props.put("jpaProperties", jpaProperties);
@@ -152,7 +167,7 @@ public class UtilsDataSourceConfig {
     @Primary
     @Bean(name = "utilsTransactionManager")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("utilsEntityManagerFactory") EntityManagerFactory entityManagerFactory
+            @Qualifier("utilsEntityManagerFactory") final EntityManagerFactory entityManagerFactory
     ) {
         return new JpaTransactionManager(entityManagerFactory);
     }
