@@ -30,23 +30,23 @@
         <java.version>1.8</java.version>
 
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
-        <spring-security-oauth2-version>2.3.6.RELEASE</spring-security-oauth2-version>
+        <spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
 
         <!--
         <ancira-searchbox-domain-version>0.2.8-SNAPSHOT</ancira-searchbox-domain-version>
         -->
-        <web-utils-version>0.2.8-SNAPSHOT</web-utils-version>
+        <web-utils.version>0.2.8-SNAPSHOT</web-utils.version>
 
-        <commons-lang3-version>3.8.1</commons-lang3-version>
-        <commons-io-version>2.6</commons-io-version>
-        <commons-codec-version>1.12</commons-codec-version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-io.version>2.6</commons-io.version>
+        <commons-codec.version>1.14</commons-codec.version>
 
-        <lombok-version>1.18.6</lombok-version>
+        <lombok.version>1.18.12</lombok.version>
 
 
-        <jaxb-api-version>2.4.0-b180830.0359</jaxb-api-version>
-        <javax-activation-version>1.1.1</javax-activation-version>
-        <jaxb-runtime-version>2.4.0-b180830.0438</jaxb-runtime-version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
 
 
     </properties>
@@ -104,39 +104,39 @@
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>${spring-security-oauth2-version}</version>
+            <version>${spring-security-oauth2.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils</artifactId>
-            <version>${web-utils-version}</version>
+            <version>${web-utils.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3-version}</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons-io-version}</version>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>${commons-codec-version}</version>
+            <version>${commons-codec.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok-version}</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -152,24 +152,24 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>${jaxb-api-version}</version>
+            <version>${jaxb-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>${javax-activation-version}</version>
+            <version>${activation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>${jaxb-runtime-version}</version>
+            <version>${jaxb-runtime.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils-test</artifactId>
-            <version>${web-utils-version}</version>
+            <version>${web-utils.version}</version>
         </dependency>
 
 

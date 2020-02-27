@@ -29,15 +29,15 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <lombok-version>1.18.6</lombok-version>
+        <lombok.version>1.18.12</lombok.version>
 
-        <jaxb-api-version>2.4.0-b180830.0359</jaxb-api-version>
-        <javax-activation-version>1.1.1</javax-activation-version>
-        <jaxb-runtime-version>2.4.0-b180830.0438</jaxb-runtime-version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <activation.version>1.1.1</activation.version>
+        <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
 
-        <spring-security-oauth2-version>2.3.6.RELEASE</spring-security-oauth2-version>
-        <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
-        <spring-security-core.version>5.2.1.RELEASE</spring-security-core.version>
+        <spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
+        <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
+        <spring-security-core.version>5.2.2.RELEASE</spring-security-core.version>
     </properties>
 
 
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok-version}</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>${spring-security-oauth2-version}</version>
+            <version>${spring-security-oauth2.version}</version>
         </dependency>
 
         <dependency>
@@ -92,17 +92,17 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>${jaxb-api-version}</version>
+            <version>${jaxb-api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>${javax-activation-version}</version>
+            <version>${activation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>${jaxb-runtime-version}</version>
+            <version>${jaxb-runtime.version}</version>
         </dependency>
 
     </dependencies>
@@ -125,7 +125,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.4</version>
+                <version>0.8.5</version>
                 <executions>
                     <execution>
                         <goals>

@@ -1,6 +1,7 @@
 package com.grayraccoon.webutils.test.auth;
 
 import org.hamcrest.Matchers;
+import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.authentication.TestingAuthenticationToken;
@@ -8,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.common.util.JacksonJsonParser;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -51,8 +51,7 @@ public final class Oauth2Utils {
 
         String resultString = result.andReturn().getResponse().getContentAsString();
 
-        JacksonJsonParser jsonParser = new JacksonJsonParser();
-
+        final JacksonJsonParser jsonParser = new JacksonJsonParser();
         return jsonParser.parseMap(resultString).get("access_token").toString();
     }
 

@@ -42,20 +42,20 @@ or use _Cloud-Svc-Parent_ or _Cloud-Svc-Parent-No-Persistence_ as parent project
 ```xml
 <project>
     <properties>
-        <web-utils-version>0.2.8-SNAPSHOT</web-utils-version>
+        <web-utils.version>0.2.8-SNAPSHOT</web-utils.version>
     </properties>
     
     <dependencies>
         <dependency>
             <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils</artifactId>
-            <version>${web-utils-version}</version>
+            <version>${web-utils.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.grayraccoon.Web-Utils</groupId>
             <artifactId>web-utils-test</artifactId>
-            <version>${web-utils-version}</version>
+            <version>${web-utils.version}</version>
         </dependency>
     </dependencies>
     
