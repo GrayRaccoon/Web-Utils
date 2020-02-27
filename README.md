@@ -42,7 +42,7 @@ or use _Cloud-Svc-Parent_ or _Cloud-Svc-Parent-No-Persistence_ as parent project
 ```xml
 <project>
     <properties>
-        <web-utils-version>0.2.7-SNAPSHOT</web-utils-version>
+        <web-utils-version>0.2.8-SNAPSHOT</web-utils-version>
     </properties>
     
     <dependencies>
@@ -76,7 +76,7 @@ or use _Cloud-Svc-Parent_ or _Cloud-Svc-Parent-No-Persistence_ as parent project
     <parent>
         <groupId>com.grayraccoon.Web-Utils</groupId>
         <artifactId>cloud-svc-parent-no-persistence</artifactId>
-        <version>0.2.7-SNAPSHOT</version>
+        <version>0.2.8-SNAPSHOT</version>
         <relativePath/>
     </parent>
     
@@ -97,7 +97,7 @@ or use _Cloud-Svc-Parent_ or _Cloud-Svc-Parent-No-Persistence_ as parent project
     <parent>
         <groupId>com.grayraccoon.Web-Utils</groupId>
         <artifactId>cloud-svc-parent</artifactId>
-        <version>0.2.7-SNAPSHOT</version>
+        <version>0.2.8-SNAPSHOT</version>
         <relativePath/>
     </parent>
     
