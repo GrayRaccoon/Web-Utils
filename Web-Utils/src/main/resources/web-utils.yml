@@ -45,10 +45,14 @@ spring:
     web:
       allow-all-cors: false
     security:
+      actuator:
+        enabled: false
+        security-realm: Web-Utils powered Backend
+        user: actuator
+        password: default
       oauth2-server:
         enabled: false
         signing-key: 8B9kTV0FfUwa76R #https://www.random.org/strings/ 15 length
-        security-realm: Web-Utils powered Backend
       oauth2-resource:
         enabled: false
         local-resource-id: server-resource-id

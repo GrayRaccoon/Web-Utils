@@ -39,20 +39,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                // this is to allow display in iframe
-                .headers().frameOptions().disable()
-                .and()
-                .cors().and()
                 .requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/actuator", "/actuator/health", "/actuator/info", "/actuator/hystrix.stream").permitAll()
-                .antMatchers("/actuator/**").authenticated()
-
                 .antMatchers(securedMatchers).authenticated()
 
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+        ;
     }
 
 }
