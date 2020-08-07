@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.3.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.grayraccoon.Web-Utils</groupId>
     <artifactId>cloud-svc-parent-no-persistence</artifactId>
-    <version>0.2.9-SNAPSHOT</version>
+    <version>0.2.10-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <developers>
@@ -33,9 +33,9 @@
         <spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
 
         <!--
-        <ancira-searchbox-domain-version>0.2.9-SNAPSHOT</ancira-searchbox-domain-version>
+        <ancira-searchbox-domain-version>0.2.10-SNAPSHOT</ancira-searchbox-domain-version>
         -->
-        <web-utils.version>0.2.9-SNAPSHOT</web-utils.version>
+        <web-utils.version>0.2.10-SNAPSHOT</web-utils.version>
 
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
