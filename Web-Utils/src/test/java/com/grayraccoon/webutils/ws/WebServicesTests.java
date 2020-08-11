@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,8 +43,9 @@ public class WebServicesTests {
 
     @BeforeEach
     public void setup() {
-        final CustomValidatorServiceImpl customValidatorService = new CustomValidatorServiceImpl();
-        customValidatorService.getValidator();
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        final CustomValidatorServiceImpl customValidatorService =
+                new CustomValidatorServiceImpl(factory.getValidator());
         final RestExceptionHandler restExceptionHandler = new RestExceptionHandler();
         restExceptionHandler.setCustomValidatorService(customValidatorService);
 

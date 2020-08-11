@@ -13,9 +13,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.Id;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Set;
@@ -38,8 +41,10 @@ public class CommonEntityOperationsServiceImplTests {
 
     @BeforeEach
     public void setUp() throws Exception {
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
         Mockito.when(customValidatorService.validateObject(ArgumentMatchers.any())).thenCallRealMethod();
-        Mockito.when(customValidatorService.getValidator()).thenCallRealMethod();
+        Mockito.when(customValidatorService.getValidator()).thenReturn(factory.getValidator());
     }
 
     @Test
@@ -159,7 +164,7 @@ public class CommonEntityOperationsServiceImplTests {
 
 
     private void mockSave() {
-        Mockito.when(someEntityRepository.save(ArgumentMatchers.any(SomeEntity.class))).thenCallRealMethod();
+        Mockito.when(someEntityRepository.saveAndFlush(ArgumentMatchers.any(SomeEntity.class))).thenCallRealMethod();
     }
 
     private void mockApiErrorToConstraint() {
@@ -187,9 +192,9 @@ public class CommonEntityOperationsServiceImplTests {
 
         @Builder.Default private Integer irrelevantField = 0;
     }
-    private interface SomeEntityRepository extends CrudRepository<SomeEntity, Integer> {
+    private interface SomeEntityRepository extends JpaRepository<SomeEntity, Integer> {
         @Override
-        default <S extends SomeEntity> S save(S s) {
+        default <S extends SomeEntity> S saveAndFlush(final S s) {
             return s;
         }
     }

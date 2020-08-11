@@ -3,13 +3,13 @@ package com.grayraccoon.webutils.services.impl;
 import com.grayraccoon.webutils.errors.ApiError;
 import com.grayraccoon.webutils.errors.ApiValidationError;
 import com.grayraccoon.webutils.services.CustomValidatorService;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,18 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class CustomValidatorServiceImpl implements CustomValidatorService {
 
-    private Validator validator;
+    @Getter
+    private final Validator validator;
 
-    public CustomValidatorServiceImpl() {
-        getValidator();
-    }
-
-    public Validator getValidator() {
-        if (validator == null) {
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            validator = factory.getValidator();
-        }
-        return validator;
+    @Autowired
+    public CustomValidatorServiceImpl(
+            final Validator validator) {
+        this.validator = validator;
     }
 
     @Override

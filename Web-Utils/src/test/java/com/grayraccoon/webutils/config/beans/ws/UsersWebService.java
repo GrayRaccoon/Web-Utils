@@ -9,6 +9,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,7 @@ public class UsersWebService extends BaseWebService {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/secured/users")
     public GenericDto<?> findAllUsers() {
+        LOGGER.info("Current locale: {}", LocaleContextHolder.getLocale());
         LOGGER.info("findAllUsers()");
         final List<UsersEntity> users = simpleUserService.findAll();
         LOGGER.info("{} users found.", users.size());
@@ -44,6 +46,7 @@ public class UsersWebService extends BaseWebService {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/secured/users/{userId}")
     public GenericDto<?> findUser(@PathVariable UUID userId) {
+        LOGGER.info("Current locale: {}", LocaleContextHolder.getLocale());
         LOGGER.info("findUser() {}", userId);
         final UsersEntity user = simpleUserService.findUserById(userId);
         LOGGER.info("User {} Found: {}", userId, user);

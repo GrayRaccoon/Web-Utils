@@ -9,11 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -25,20 +24,25 @@ import java.util.Set;
  * @author Heriberto Reyes Esparza
  */
 @Service
-@ConditionalOnClass(CrudRepository.class)
+@ConditionalOnClass(JpaRepository.class)
 public class CommonEntityOperationsServiceImpl implements CommonEntityOperationsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonEntityOperationsServiceImpl.class);
 
+    private final CustomValidatorService customValidatorService;
+
     @Autowired
-    private CustomValidatorService customValidatorService;
+    public CommonEntityOperationsServiceImpl(
+            final CustomValidatorService customValidatorService) {
+        this.customValidatorService = customValidatorService;
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity) throws CustomApiException {
         return this.validateAndSaveEntity(repository, entity, null, null);
     }
@@ -48,7 +52,7 @@ public class CommonEntityOperationsServiceImpl implements CommonEntityOperations
      */
     @Override
     public <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             ManualValidatorSupplier<T> manualValidation) throws CustomApiException {
         return this.validateAndSaveEntity(repository, entity, manualValidation, null);
@@ -59,7 +63,7 @@ public class CommonEntityOperationsServiceImpl implements CommonEntityOperations
      */
     @Override
     public <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             PostProcessEntity<T> postProcessEntity) throws CustomApiException {
         return this.validateAndSaveEntity(repository, entity, null, postProcessEntity);
@@ -70,15 +74,14 @@ public class CommonEntityOperationsServiceImpl implements CommonEntityOperations
      */
     @Override
     public <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             ManualValidatorSupplier<T> manualValidation,
             PostProcessEntity<T> postProcessEntity) throws CustomApiException {
-        LOGGER.info("validateAndSaveEntity()");
+        LOGGER.trace("Performing Validation previous to save()");
         Objects.requireNonNull(repository);
         Objects.requireNonNull(entity);
-        LOGGER.info("Validating class: {}", entity.getClass().getName());
-
+        LOGGER.trace("Validating: {}", entity);
 
         final Set<ApiValidationError> errors = new HashSet<>();
 
@@ -90,20 +93,19 @@ public class CommonEntityOperationsServiceImpl implements CommonEntityOperations
             manualValidation.applyManualValidation(entity, errors);
         }
 
-        LOGGER.info("Errors found while validating entity: {}", errors.size());
-
         if (errors.isEmpty()) {
+            LOGGER.info("No errors found validating entity.");
 
             // Apply post processing
             if (postProcessEntity != null) {
                 entity = postProcessEntity.postProcess(entity);
             }
 
-            return repository.save(entity);
+            return repository.saveAndFlush(entity);
         }else {
-            final ApiValidationError firstError = new ArrayList<>(errors).get(0);
-            final ApiError apiError = customValidatorService.getApiErrorFromApiValidationErrors(errors)
-                    .toBuilder().message(firstError.getMessage()).build();
+            LOGGER.warn("Errors found while validating entity: {}", errors.size());
+
+            final ApiError apiError = customValidatorService.getApiErrorFromApiValidationErrors(errors);
             throw new CustomApiException(apiError);
         }
     }

@@ -12,7 +12,8 @@ import org.springframework.util.ResourceUtils;
 @Import({
         TaskPoolConfiguration.class,
         AsynchronousSpringEventsConfig.class,
-        WebConfig.class
+        WebConfig.class,
+        LanguageConfig.class
 })
 @SpringBootApplication(
         // Load Advice and Services

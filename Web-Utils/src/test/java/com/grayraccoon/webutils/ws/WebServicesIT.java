@@ -94,6 +94,7 @@ public class WebServicesIT {
         final String access_token = Oauth2Utils.getUserAccessToken(mockMvc, "user","password");
 
         mockMvc.perform(get("/ws/secured/users")
+                .header("Accept-Language", "en-US")
                 .header("Authorization", "Bearer " + access_token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isForbidden())   //  403
@@ -110,6 +111,7 @@ public class WebServicesIT {
         final String user_userId = "01e3d8d5-0009-4111-b3d0-be6562ca5922";
 
         mockMvc.perform(get(String.format("/ws/secured/users/%s", user_userId))
+                .header("Accept-Language", "")
                 .header("Authorization", "Bearer " + access_token)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())   //  404

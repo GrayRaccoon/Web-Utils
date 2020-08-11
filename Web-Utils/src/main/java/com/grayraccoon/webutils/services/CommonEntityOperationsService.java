@@ -2,7 +2,7 @@ package com.grayraccoon.webutils.services;
 
 import com.grayraccoon.webutils.errors.ApiValidationError;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -18,67 +18,67 @@ public interface CommonEntityOperationsService {
     /**
      * Validates entity using {@link CustomValidatorService} and then saves it.
      * If there is any validation error, it will throw a {@link CustomApiException},
-     * otherwise It will Save entity using provided {@link CrudRepository}.
+     * otherwise It will Save entity using provided {@link JpaRepository}.
      *
      * @param repository Repository where to store entity after successful validation.
      * @param entity Entity to validate.
      * @param <T> Entity to validate Type class.
-     * @return result from {@link CrudRepository#save(Object)} after successful validation.
+     * @return result from {@link JpaRepository#saveAndFlush(Object)} after successful validation.
      * @throws CustomApiException If there is any validation error.
      */
     <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity) throws CustomApiException;
 
     /**
      * Validates entity using {@link CustomValidatorService} and a {@link ManualValidatorSupplier} and then saves it.
      * If there is any validation error, it will throw a {@link CustomApiException},
-     * otherwise It will Save entity using provided {@link CrudRepository}.
+     * otherwise It will Save entity using provided {@link JpaRepository}.
      *
      * @param repository Repository where to store entity after successful validation.
      * @param entity Entity to validate.
      * @param manualValidation Callback to perform some manual validations on entity.
      * @param <T> Entity to validate Type class.
-     * @return result from {@link CrudRepository#save(Object)} after successful validation.
+     * @return result from {@link JpaRepository#saveAndFlush(Object)} after successful validation.
      * @throws CustomApiException If there is any validation error.
      */
     <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             ManualValidatorSupplier<T> manualValidation) throws CustomApiException;
 
     /**
      * Validates entity using {@link CustomValidatorService} and then saves it.
      * If there is any validation error, it will throw a {@link CustomApiException},
-     * otherwise It will Save entity using provided {@link CrudRepository}.
+     * otherwise It will Save entity using provided {@link JpaRepository}.
      *
      * @param repository Repository where to store entity after successful validation.
      * @param entity Entity to validate.
      * @param postProcessEntity Callback to perform some post processing to entity before saving it.
      * @param <T> Entity to validate Type class.
-     * @return result from {@link CrudRepository#save(Object)} after successful validation.
+     * @return result from {@link JpaRepository#saveAndFlush(Object)} after successful validation.
      * @throws CustomApiException CustomApiException If there is any validation error.
      */
     <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             PostProcessEntity<T> postProcessEntity) throws CustomApiException;
 
     /**
      * Validates entity using {@link CustomValidatorService} and then saves it.
      * If there is any validation error, it will throw a {@link CustomApiException},
-     * otherwise It will Save entity using provided {@link CrudRepository}.
+     * otherwise It will Save entity using provided {@link JpaRepository}.
      *
      * @param repository Repository where to store entity after successful validation.
      * @param entity Entity to validate.
      * @param manualValidation Callback to perform some manual validations on entity.
      * @param postProcessEntity Callback to perform some post processing to entity before saving it.
      * @param <T> Entity to validate Type class.
-     * @return result from {@link CrudRepository#save(Object)} after successful validation.
+     * @return result from {@link JpaRepository#saveAndFlush(Object)} after successful validation.
      * @throws CustomApiException CustomApiException If there is any validation error.
      */
     <T extends Serializable> T validateAndSaveEntity(
-            CrudRepository<T, ?> repository,
+            JpaRepository<T, ?> repository,
             T entity,
             ManualValidatorSupplier<T> manualValidation,
             PostProcessEntity<T> postProcessEntity) throws CustomApiException;
@@ -87,7 +87,7 @@ public interface CommonEntityOperationsService {
      * @author Heriberto Reyes Esparza
      */
     @FunctionalInterface
-    public interface ManualValidatorSupplier<T extends Serializable> {
+    interface ManualValidatorSupplier<T extends Serializable> {
 
         /**
          * Callback to apply some manual validations on entity before saving it.
@@ -103,7 +103,7 @@ public interface CommonEntityOperationsService {
      * @author Heriberto Reyes Esparza
      */
     @FunctionalInterface
-    public interface PostProcessEntity<T extends Serializable> {
+    interface PostProcessEntity<T extends Serializable> {
 
         /**
          * Callback to apply some post processing to the entity before persist it.

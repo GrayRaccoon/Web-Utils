@@ -11,6 +11,18 @@ spring:
       threadNamePrefix: Async-tests-
       scheduledTasksPoolSize: 40
       scheduledTasksPoolNamePrefix: Scheduling-
+    lang-messages:
+      enabled: true
+      defaultLocale: en
+      supportedLocales:
+        - en
+        - es
+      messageBasenames:
+        - "classpath:strings/messages"
+        - "classpath:messages/messages"
+        - "classpath:messages"
+        - "classpath:ValidationMessages"
+        - "classpath:strings/ValidationMessages"
     data:
       enabled: true
       # Jpa Entities Package
