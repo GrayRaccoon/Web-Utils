@@ -2,6 +2,8 @@ package com.grayraccoon.webutils.helpers;
 
 import com.grayraccoon.webutils.errors.ApiError;
 import com.grayraccoon.webutils.exceptions.CustomApiException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +19,12 @@ import java.util.Objects;
 /**
  * @author Heriberto Reyes Esparza
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FileAsResponseHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileAsResponseHelper.class);
 
     public static final String CONTENT_DISPOSITION_PREFIX = "attachment;filename=";
-
-    private FileAsResponseHelper() {}
 
     /**
      * Writes byte[] content as a File into a {@link HttpServletResponse}.
