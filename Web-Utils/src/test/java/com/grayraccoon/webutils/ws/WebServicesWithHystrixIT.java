@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -72,9 +73,6 @@ public class WebServicesWithHystrixIT {
                         .email("cusotom@mail.com")
                         .username("admin")
                         .build());
-
-        Mockito.when(simpleUserService.findAll())
-                .thenThrow(new RuntimeException("Something happened"));
     }
 
     @Test
@@ -84,7 +82,27 @@ public class WebServicesWithHystrixIT {
 
     @Test
     public void findAllUsers_Success_Test() throws Exception {
-        final String access_token = Oauth2Utils.getUserAccessToken(mockMvc, "admin","password");
+        Mockito.when(simpleUserService.findAll())
+                .thenReturn(Collections.emptyList());
+
+        final String access_token = Oauth2Utils.getUserAccessToken(mockMvc, "admin", "password");
+
+        mockMvc.perform(get("/ws/secured/users")
+                .header("Authorization", "Bearer " + access_token)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.data", Matchers.notNullValue()))
+                .andExpect(jsonPath("$.error").doesNotExist())
+        ;
+    }
+
+    @Test
+    public void findAllUsers_Fallback_Test() throws Exception {
+        Mockito.when(simpleUserService.findAll())
+                .thenThrow(new RuntimeException("Something happened"));
+
+        final String access_token = Oauth2Utils.getUserAccessToken(mockMvc, "admin", "password");
 
         mockMvc.perform(get("/ws/secured/users")
                 .header("Authorization", "Bearer " + access_token)

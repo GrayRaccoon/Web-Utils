@@ -37,6 +37,7 @@ spring:
         driver-class-name: org.h2.Driver
     web:
       allow-all-cors: true
+      hystrix-share-thread-local: true
     security:
       actuator:
         enabled: true

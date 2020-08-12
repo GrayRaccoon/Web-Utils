@@ -13,7 +13,8 @@ import org.springframework.util.ResourceUtils;
         TaskPoolConfiguration.class,
         AsynchronousSpringEventsConfig.class,
         WebConfig.class,
-        LanguageConfig.class
+        LanguageConfig.class,
+        HystrixThreadLocalConfig.class
 })
 @SpringBootApplication(
         // Load Advice and Services
