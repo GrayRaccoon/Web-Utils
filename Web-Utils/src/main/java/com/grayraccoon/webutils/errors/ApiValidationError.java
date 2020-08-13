@@ -21,7 +21,7 @@ public class ApiValidationError extends ApiSubError {
 
     private String message;
 
-    public ApiValidationError(Object rejectedValue) {
+    public ApiValidationError(final Object rejectedValue) {
         this.rejectedValue = rejectedValue;
     }
 }

@@ -5,7 +5,7 @@
 
 	<groupId>com.grayraccoon.Web-Utils</groupId>
 	<artifactId>web-utils-root</artifactId>
-	<version>0.2.13-SNAPSHOT</version>
+	<version>0.2.14-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Web Utils</name>
