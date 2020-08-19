@@ -8,7 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -79,11 +79,11 @@ public class UsersEntity implements BaseUserDetails {
 
     @Column(updatable = false)
     @CreationTimestamp
-    private LocalDateTime createDateTime;
+    private ZonedDateTime createDateTime;
 
     @Column
     @UpdateTimestamp
-    private LocalDateTime updateDateTime;
+    private ZonedDateTime updateDateTime;
 
     @ManyToMany(mappedBy = "usersCollection")
     private Set<RolesEntity> rolesCollection;

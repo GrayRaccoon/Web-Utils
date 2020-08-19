@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,10 +59,10 @@ public class SimpleUserServiceImpl implements SimpleUserService {
         boolean newUser = user.getUserId() == null;
 
         if (newUser) {
-            user.setCreateDateTime(LocalDateTime.now());
+            user.setCreateDateTime(ZonedDateTime.now());
             user.setActive(true);
         }
-        user.setUpdateDateTime(LocalDateTime.now());
+        user.setUpdateDateTime(ZonedDateTime.now());
 
         return commonEntityOperationsService.validateAndSaveEntity(this.usersRepository, user);
     }

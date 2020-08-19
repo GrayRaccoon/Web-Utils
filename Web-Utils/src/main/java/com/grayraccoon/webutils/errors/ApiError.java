@@ -7,7 +7,7 @@ import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class ApiError {
     private HttpStatus status;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss Z")
-    @Setter(AccessLevel.NONE) private LocalDateTime timestamp;
+    @Setter(AccessLevel.NONE) private ZonedDateTime timestamp;
 
     private String code;
 
@@ -35,7 +35,7 @@ public class ApiError {
     private List<ApiSubError> subErrors;
 
     private ApiError() {
-        timestamp = LocalDateTime.now();
+        timestamp = ZonedDateTime.now();
         status = HttpStatus.BAD_REQUEST;
         code = String.valueOf(HttpStatus.BAD_REQUEST.value());
         message = status.getReasonPhrase();
