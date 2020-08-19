@@ -7,12 +7,12 @@
     <parent>
         <groupId>com.grayraccoon.Web-Utils</groupId>
         <artifactId>cloud-svc-parent-no-persistence</artifactId>
-        <version>0.2.14-SNAPSHOT</version>
+        <version>0.2.15-SNAPSHOT</version>
         <relativePath>../Cloud-Svc-Parent-No-Persistence/pom.xml</relativePath>
     </parent>
 
     <artifactId>cloud-svc-parent</artifactId>
-    <version>0.2.14-SNAPSHOT</version>
+    <version>0.2.15-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <developers>

@@ -13,7 +13,7 @@
 
     <groupId>com.grayraccoon.Web-Utils</groupId>
     <artifactId>cloud-svc-parent-no-persistence</artifactId>
-    <version>0.2.14-SNAPSHOT</version>
+    <version>0.2.15-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <developers>
@@ -33,9 +33,9 @@
         <spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
 
         <!--
-        <ancira-searchbox-domain-version>0.2.14-SNAPSHOT</ancira-searchbox-domain-version>
+        <ancira-searchbox-domain-version>0.2.15-SNAPSHOT</ancira-searchbox-domain-version>
         -->
-        <web-utils.version>0.2.14-SNAPSHOT</web-utils.version>
+        <web-utils.version>0.2.15-SNAPSHOT</web-utils.version>
 
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-io.version>2.6</commons-io.version>
